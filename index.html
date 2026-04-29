@@ -1,0 +1,1649 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GEdu — Temukan Sekolah Terbaik untuk Anakmu</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Sans:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0a0e1a;
+  --ink2:#161c30;
+  --red:#e8372a;
+  --red2:#ff5a4a;
+  --cream:#f7f3ed;
+  --warm:#ede8e0;
+  --white:#ffffff;
+  --muted:#6b7280;
+  --light:#9ca3af;
+  --border:#e5e7eb;
+  --green:#16a34a;
+  --amber:#d97706;
+  --blue:#2563eb;
+  --gold:#c9963b;
+  --r:16px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Instrument Sans',sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden;cursor:none}
+
+/* CUSTOM CURSOR */
+#cursor{position:fixed;width:12px;height:12px;background:var(--red);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform 0.1s,width 0.25s,height 0.25s,background 0.2s;mix-blend-mode:multiply}
+#cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid var(--red);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform 0.08s,width 0.3s,height 0.3s,opacity 0.3s;opacity:0.5}
+body:hover #cursor{opacity:1}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--cream)}
+::-webkit-scrollbar-thumb{background:var(--red);border-radius:2px}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1.25rem 3rem;display:flex;justify-content:space-between;align-items:center;transition:background 0.4s,backdrop-filter 0.4s,box-shadow 0.4s}
+nav.scrolled{background:rgba(10,14,26,0.92);backdrop-filter:blur(20px);box-shadow:0 1px 0 rgba(255,255,255,0.06)}
+.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.5rem;color:white;letter-spacing:-0.02em}
+.nav-logo span{color:var(--red2)}
+.nav-links{display:flex;gap:2rem;align-items:center}
+.nav-links a{color:rgba(255,255,255,0.6);text-decoration:none;font-size:0.88rem;font-weight:500;transition:color 0.2s}
+.nav-links a:hover{color:white}
+.nav-cta{background:var(--red);color:white!important;padding:0.5rem 1.25rem;border-radius:100px;transition:background 0.2s!important}
+.nav-cta:hover{background:var(--red2)!important}
+
+/* HERO */
+.hero{min-height:100vh;background:var(--ink);display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;padding:6rem 3rem 4rem}
+.hero-bg{position:absolute;inset:0;pointer-events:none}
+.hero-orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:0.35}
+.orb1{width:600px;height:600px;background:radial-gradient(circle,#e8372a,transparent);top:-200px;right:-100px;animation:pulse1 8s ease-in-out infinite}
+.orb2{width:400px;height:400px;background:radial-gradient(circle,#2563eb,transparent);bottom:-100px;left:-50px;animation:pulse2 10s ease-in-out infinite}
+.orb3{width:300px;height:300px;background:radial-gradient(circle,#c9963b,transparent);top:40%;left:30%;animation:pulse1 12s ease-in-out infinite reverse}
+@keyframes pulse1{0%,100%{transform:scale(1) translate(0,0)}50%{transform:scale(1.1) translate(20px,-20px)}}
+@keyframes pulse2{0%,100%{transform:scale(1) translate(0,0)}50%{transform:scale(1.08) translate(-15px,15px)}}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black,transparent)}
+.hero-noise{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none}
+
+.hero-content{position:relative;z-index:1;max-width:900px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(232,55,42,0.15);border:1px solid rgba(232,55,42,0.3);border-radius:100px;padding:6px 14px;margin-bottom:2rem;animation:fadeUp 0.8s ease both}
+.badge-dot{width:6px;height:6px;background:var(--red2);border-radius:50%;animation:blink 2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+.hero-badge span{font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--red2)}
+.hero-headline{font-family:'Syne',sans-serif;font-size:clamp(3rem,7vw,6.5rem);font-weight:800;line-height:0.95;letter-spacing:-0.03em;color:white;margin-bottom:1.5rem;animation:fadeUp 0.8s 0.1s ease both}
+.hero-headline em{font-style:italic;font-family:'Instrument Serif',serif;color:var(--red2);font-weight:400}
+.hero-sub{font-size:1.1rem;color:rgba(255,255,255,0.55);max-width:520px;line-height:1.7;margin-bottom:3rem;font-weight:300;animation:fadeUp 0.8s 0.2s ease both}
+
+/* HERO SEARCH BAR */
+.search-wrap{animation:fadeUp 0.8s 0.3s ease both}
+.search-bar{display:flex;align-items:center;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:6px 6px 6px 20px;gap:12px;max-width:680px;backdrop-filter:blur(20px);transition:border-color 0.3s,background 0.3s}
+.search-bar:focus-within{border-color:rgba(232,55,42,0.5);background:rgba(255,255,255,0.1)}
+.search-bar input{flex:1;background:none;border:none;outline:none;color:white;font-family:'Instrument Sans',sans-serif;font-size:1rem;font-weight:400}
+.search-bar input::placeholder{color:rgba(255,255,255,0.3)}
+.search-filters{display:flex;gap:8px}
+.sf-tag{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:6px 12px;font-size:0.78rem;color:rgba(255,255,255,0.5);cursor:pointer;transition:all 0.2s;white-space:nowrap}
+.sf-tag:hover,.sf-tag.active{background:var(--red);border-color:var(--red);color:white}
+.search-btn{background:var(--red);border:none;border-radius:12px;padding:0.75rem 1.5rem;color:white;font-family:'Instrument Sans',sans-serif;font-weight:600;font-size:0.9rem;cursor:pointer;white-space:nowrap;transition:background 0.2s,transform 0.1s}
+.search-btn:hover{background:var(--red2);transform:scale(1.02)}
+.search-btn:active{transform:scale(0.98)}
+.hero-hints{display:flex;gap:1rem;margin-top:1rem;flex-wrap:wrap;animation:fadeUp 0.8s 0.4s ease both}
+.hint{font-size:0.78rem;color:rgba(255,255,255,0.35)}
+.hint-tag{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);border-radius:6px;padding:4px 10px;font-size:0.75rem;color:rgba(255,255,255,0.4);cursor:pointer;transition:all 0.2s;display:inline-block}
+.hint-tag:hover{background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.8)}
+
+/* HERO STATS */
+.hero-stats{position:absolute;bottom:3rem;right:3rem;display:flex;gap:2rem;z-index:1;animation:fadeUp 0.8s 0.5s ease both}
+.hstat{text-align:right}
+.hstat-num{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:white;line-height:1}
+.hstat-num span{color:var(--red2)}
+.hstat-label{font-size:11px;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.1em;margin-top:2px}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+/* TICKER */
+.ticker-wrap{background:var(--red);padding:0.6rem 0;overflow:hidden}
+.ticker{display:flex;animation:ticker 30s linear infinite;width:max-content}
+.ticker-item{white-space:nowrap;padding:0 2rem;font-size:0.78rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.85)}
+.ticker-sep{color:rgba(255,255,255,0.4);margin:0 0.5rem}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* SECTIONS */
+.section{padding:6rem 3rem}
+.section-label{font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--red);margin-bottom:0.75rem}
+.section-title{font-family:'Syne',sans-serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:800;letter-spacing:-0.02em;line-height:1.05;margin-bottom:1rem}
+.section-title em{font-style:italic;font-family:'Instrument Serif',serif;font-weight:400;color:var(--muted)}
+
+/* TRUST STRIP */
+.trust{background:var(--ink2);padding:4rem 3rem}
+.trust-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:center}
+.trust-text h2{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:white;margin-bottom:0.5rem;letter-spacing:-0.02em}
+.trust-text p{color:rgba(255,255,255,0.5);font-size:0.9rem;max-width:400px;line-height:1.7}
+.trust-cards{display:flex;gap:1rem}
+.trust-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:1.25rem 1.5rem;text-align:center;min-width:130px}
+.trust-num{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:white;line-height:1}
+.trust-num em{color:var(--red2);font-style:normal}
+.trust-lbl{font-size:11px;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.1em;margin-top:4px}
+
+/* SCHOOL RESULTS */
+.results-section{background:var(--cream);padding:5rem 3rem}
+.results-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:2rem;max-width:1100px;margin-left:auto;margin-right:auto}
+.results-title{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;letter-spacing:-0.01em}
+.results-count{font-size:0.85rem;color:var(--muted)}
+.results-count strong{color:var(--red);font-weight:700}
+
+.filter-row{display:flex;gap:8px;margin-bottom:2rem;max-width:1100px;margin-left:auto;margin-right:auto;flex-wrap:wrap}
+.filter-btn{background:white;border:1.5px solid var(--border);border-radius:100px;padding:7px 16px;font-size:0.8rem;font-weight:500;color:var(--muted);cursor:pointer;transition:all 0.2s;font-family:'Instrument Sans',sans-serif}
+.filter-btn:hover{border-color:var(--red);color:var(--red)}
+.filter-btn.active{background:var(--ink);border-color:var(--ink);color:white}
+
+.school-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;max-width:1100px;margin:0 auto}
+
+/* SCHOOL CARD */
+.school-card{background:white;border-radius:20px;overflow:hidden;border:1.5px solid var(--border);transition:transform 0.3s,box-shadow 0.3s,border-color 0.3s;cursor:pointer;position:relative}
+.school-card:hover{transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,0.1);border-color:var(--red)}
+.school-card.compare-selected{border-color:var(--red);box-shadow:0 0 0 3px rgba(232,55,42,0.15)}
+.card-top{height:130px;position:relative;display:flex;align-items:center;justify-content:center;font-size:3rem}
+.card-top-1{background:linear-gradient(135deg,#0a0e1a,#1e3a5f)}
+.card-top-2{background:linear-gradient(135deg,#1a0a0a,#5f1e1e)}
+.card-top-3{background:linear-gradient(135deg,#0a1a0e,#1e5f2a)}
+.card-top-4{background:linear-gradient(135deg,#1a1a0a,#5f5a1e)}
+.card-top-5{background:linear-gradient(135deg,#0f0a1a,#3d1e5f)}
+.card-top-6{background:linear-gradient(135deg,#0a1a18,#1e4f5f)}
+.card-badge{position:absolute;top:10px;left:10px;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:4px 10px;border-radius:100px}
+.badge-verified{background:rgba(22,163,74,0.2);color:#4ade80;border:1px solid rgba(22,163,74,0.3)}
+.badge-top{background:rgba(201,150,59,0.2);color:#fbbf24;border:1px solid rgba(201,150,59,0.3)}
+.badge-new{background:rgba(37,99,235,0.2);color:#60a5fa;border:1px solid rgba(37,99,235,0.3)}
+.compare-check{position:absolute;top:10px;right:10px;width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,0.1);border:1.5px solid rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;transition:all 0.2s;font-size:12px;color:white}
+.school-card.compare-selected .compare-check{background:var(--red);border-color:var(--red)}
+.card-body{padding:1.25rem}
+.school-level{font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--light);margin-bottom:4px}
+.school-name{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;color:var(--ink);margin-bottom:4px;line-height:1.2}
+.school-loc{font-size:0.8rem;color:var(--muted);margin-bottom:1rem;display:flex;align-items:center;gap:4px}
+.school-loc::before{content:'📍';font-size:0.7rem}
+.cost-row{display:flex;align-items:baseline;gap:4px;margin-bottom:4px}
+.cost-label{font-size:0.72rem;color:var(--light);min-width:90px}
+.cost-val{font-family:'Syne',sans-serif;font-size:0.92rem;font-weight:700;color:var(--ink)}
+.card-meta{display:flex;justify-content:space-between;align-items:center;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border)}
+.star-row{display:flex;align-items:center;gap:4px;font-size:0.8rem;font-weight:600;color:var(--ink)}
+.stars{color:#f59e0b;font-size:0.85rem}
+.meta-tags{display:flex;gap:6px}
+.mtag{background:#f3f4f6;border-radius:6px;padding:3px 8px;font-size:0.7rem;color:var(--muted);font-weight:500}
+.card-actions{display:flex;gap:8px;padding:0 1.25rem 1.25rem}
+.btn-detail{flex:1;background:var(--ink);color:white;border:none;border-radius:10px;padding:0.6rem;font-size:0.82rem;font-weight:600;cursor:pointer;font-family:'Instrument Sans',sans-serif;transition:background 0.2s}
+.btn-detail:hover{background:#1e2d45}
+.btn-compare{background:var(--warm);color:var(--ink);border:none;border-radius:10px;padding:0.6rem 0.8rem;font-size:0.82rem;font-weight:600;cursor:pointer;font-family:'Instrument Sans',sans-serif;transition:background 0.2s;white-space:nowrap}
+.btn-compare:hover{background:#e0d9cf}
+
+/* COMPARE BAR */
+.compare-bar{position:fixed;bottom:0;left:0;right:0;background:var(--ink);padding:1rem 3rem;display:flex;align-items:center;gap:1.5rem;z-index:500;transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.16,1,0.3,1);border-top:2px solid var(--red)}
+.compare-bar.visible{transform:translateY(0)}
+.compare-slots{display:flex;gap:10px;flex:1}
+.compare-slot{background:rgba(255,255,255,0.07);border:1.5px dashed rgba(255,255,255,0.15);border-radius:10px;padding:0.5rem 1rem;min-width:160px;font-size:0.82rem;color:rgba(255,255,255,0.3);transition:all 0.3s}
+.compare-slot.filled{background:rgba(232,55,42,0.15);border-color:var(--red);color:white}
+.compare-slot .slot-name{font-weight:600;font-size:0.82rem}
+.compare-slot .slot-remove{color:var(--red2);cursor:pointer;font-size:0.9rem;margin-left:6px}
+.compare-cta{background:var(--red);color:white;border:none;border-radius:10px;padding:0.7rem 1.5rem;font-size:0.88rem;font-weight:700;cursor:pointer;font-family:'Instrument Sans',sans-serif;white-space:nowrap;transition:background 0.2s}
+.compare-cta:hover{background:var(--red2)}
+.compare-cta:disabled{opacity:0.4;cursor:not-allowed}
+.compare-clear{color:rgba(255,255,255,0.4);font-size:0.8rem;cursor:pointer;transition:color 0.2s}
+.compare-clear:hover{color:white}
+
+/* COMPARE MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.8);backdrop-filter:blur(8px);z-index:2000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal{background:var(--cream);border-radius:24px;width:min(95vw,900px);max-height:90vh;overflow-y:auto;padding:2.5rem;transform:scale(0.95) translateY(20px);transition:transform 0.3s cubic-bezier(0.16,1,0.3,1)}
+.modal-overlay.open .modal{transform:scale(1) translateY(0)}
+.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem}
+.modal-title{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;letter-spacing:-0.01em}
+.modal-close{background:none;border:1.5px solid var(--border);border-radius:50%;width:36px;height:36px;cursor:pointer;font-size:1.1rem;transition:all 0.2s;display:flex;align-items:center;justify-content:center}
+.modal-close:hover{background:var(--ink);color:white;border-color:var(--ink)}
+.compare-table{width:100%;border-collapse:separate;border-spacing:0;border-radius:14px;overflow:hidden;border:1.5px solid var(--border)}
+.compare-table th{background:var(--ink);color:white;padding:1rem;font-family:'Syne',sans-serif;font-size:0.9rem;font-weight:700;text-align:center;border-right:1px solid rgba(255,255,255,0.08)}
+.compare-table th:first-child{text-align:left;background:#0d1525}
+.compare-table td{padding:0.9rem 1rem;border-bottom:1px solid var(--border);border-right:1px solid var(--border);font-size:0.88rem;text-align:center;color:var(--muted)}
+.compare-table td:first-child{font-weight:600;color:var(--ink);background:#fafafa;text-align:left;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.05em}
+.compare-table tbody tr:last-child td{border-bottom:none}
+.winner{color:var(--green);font-weight:700}
+.loser{color:var(--muted)}
+.tag-green{background:#dcfce7;color:#166534;padding:3px 10px;border-radius:100px;font-size:0.78rem;font-weight:600}
+.tag-amber{background:#fef3c7;color:#92400e;padding:3px 10px;border-radius:100px;font-size:0.78rem;font-weight:600}
+.tag-red{background:#fee2e2;color:#991b1b;padding:3px 10px;border-radius:100px;font-size:0.78rem;font-weight:600}
+
+/* AI QUIZ */
+.quiz-section{background:var(--ink);padding:6rem 3rem;position:relative;overflow:hidden}
+.quiz-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 70% 50%,rgba(232,55,42,0.12),transparent)}
+.quiz-inner{max-width:700px;margin:0 auto;position:relative}
+.quiz-section .section-title{color:white}
+.quiz-section .section-label{color:var(--red2)}
+.quiz-section p{color:rgba(255,255,255,0.55);font-size:0.95rem;line-height:1.7;margin-bottom:2.5rem}
+.quiz-box{background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,255,255,0.1);border-radius:20px;padding:2.5rem;backdrop-filter:blur(20px)}
+.quiz-step{display:none}
+.quiz-step.active{display:block;animation:fadeUp 0.4s ease both}
+.quiz-q{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:700;color:white;margin-bottom:1.5rem;line-height:1.3}
+.quiz-progress{display:flex;gap:6px;margin-bottom:2rem}
+.qp-dot{height:3px;flex:1;background:rgba(255,255,255,0.1);border-radius:2px;transition:background 0.3s}
+.qp-dot.done{background:var(--red)}
+.qp-dot.active{background:var(--red2)}
+.quiz-options{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.q-opt{background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.08);border-radius:12px;padding:0.9rem 1.1rem;cursor:pointer;transition:all 0.2s;text-align:left;font-family:'Instrument Sans',sans-serif;font-size:0.88rem;color:rgba(255,255,255,0.75);line-height:1.4}
+.q-opt:hover{border-color:var(--red2);background:rgba(232,55,42,0.1);color:white}
+.q-opt.selected{border-color:var(--red);background:rgba(232,55,42,0.2);color:white}
+.quiz-result{text-align:center;padding:1rem 0}
+.quiz-result h3{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;color:white;margin-bottom:0.5rem}
+.quiz-result p{color:rgba(255,255,255,0.6);margin-bottom:1.5rem}
+.result-cards-mini{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1.5rem}
+.rcm{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:1rem;text-align:center}
+.rcm-emoji{font-size:1.5rem;margin-bottom:0.5rem}
+.rcm-name{font-size:0.78rem;font-weight:600;color:white;line-height:1.3}
+.rcm-match{font-size:0.7rem;color:var(--red2);margin-top:4px;font-weight:600}
+.quiz-cta-btn{background:var(--red);border:none;border-radius:12px;padding:0.9rem 2rem;color:white;font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;transition:background 0.2s,transform 0.1s;width:100%}
+.quiz-cta-btn:hover{background:var(--red2);transform:scale(1.01)}
+
+/* PREMIUM */
+.premium-section{padding:6rem 3rem;background:var(--cream)}
+.premium-inner{max-width:1100px;margin:0 auto}
+.plan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:3rem}
+.plan-card{background:white;border:1.5px solid var(--border);border-radius:20px;padding:2rem;transition:transform 0.3s,box-shadow 0.3s}
+.plan-card:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,0,0,0.07)}
+.plan-card.featured{background:var(--ink);border-color:var(--ink);transform:translateY(-8px)}
+.plan-card.featured:hover{transform:translateY(-12px)}
+.plan-label{font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.75rem}
+.plan-card:not(.featured) .plan-label{color:var(--muted)}
+.plan-card.featured .plan-label{color:var(--red2)}
+.plan-name{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;margin-bottom:0.5rem}
+.plan-card:not(.featured) .plan-name{color:var(--ink)}
+.plan-card.featured .plan-name{color:white}
+.plan-price{font-family:'Syne',sans-serif;font-size:2.2rem;font-weight:800;margin-bottom:0.25rem;line-height:1}
+.plan-card:not(.featured) .plan-price{color:var(--ink)}
+.plan-card.featured .plan-price{color:white}
+.plan-price span{font-size:0.85rem;font-weight:400}
+.plan-card:not(.featured) .plan-price span{color:var(--muted)}
+.plan-card.featured .plan-price span{color:rgba(255,255,255,0.5)}
+.plan-desc{font-size:0.82rem;margin-bottom:1.5rem;line-height:1.6}
+.plan-card:not(.featured) .plan-desc{color:var(--muted)}
+.plan-card.featured .plan-desc{color:rgba(255,255,255,0.55)}
+.plan-divider{height:1px;margin-bottom:1.5rem}
+.plan-card:not(.featured) .plan-divider{background:var(--border)}
+.plan-card.featured .plan-divider{background:rgba(255,255,255,0.1)}
+.plan-features li{font-size:0.83rem;margin-bottom:0.6rem;display:flex;align-items:flex-start;gap:8px;list-style:none;padding:0}
+.plan-card:not(.featured) .plan-features li{color:var(--muted)}
+.plan-card.featured .plan-features li{color:rgba(255,255,255,0.7)}
+.feat-check{color:var(--green);font-size:0.9rem;flex-shrink:0;margin-top:1px}
+.plan-card.featured .feat-check{color:var(--red2)}
+.feat-x{color:var(--light);font-size:0.9rem;flex-shrink:0;margin-top:1px}
+.plan-btn{width:100%;border:none;border-radius:12px;padding:0.85rem;font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;cursor:pointer;margin-top:1.5rem;transition:all 0.2s}
+.plan-card:not(.featured) .plan-btn{background:var(--warm);color:var(--ink)}
+.plan-card:not(.featured) .plan-btn:hover{background:#d9d0c5}
+.plan-card.featured .plan-btn{background:var(--red);color:white}
+.plan-card.featured .plan-btn:hover{background:var(--red2)}
+
+/* TESTIMONIALS */
+.testi-section{background:var(--ink2);padding:6rem 3rem}
+.testi-inner{max-width:1100px;margin:0 auto}
+.testi-section .section-title{color:white}
+.testi-section .section-label{color:var(--red2)}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:3rem}
+.testi-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:1.75rem;transition:border-color 0.3s}
+.testi-card:hover{border-color:rgba(255,255,255,0.15)}
+.testi-stars{color:#f59e0b;margin-bottom:1rem;font-size:0.9rem}
+.testi-text{color:rgba(255,255,255,0.7);font-size:0.88rem;line-height:1.75;margin-bottom:1.5rem;font-style:italic}
+.testi-author{display:flex;align-items:center;gap:10px}
+.testi-avatar{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.av1{background:linear-gradient(135deg,#667eea,#764ba2)}
+.av2{background:linear-gradient(135deg,#f093fb,#f5576c)}
+.av3{background:linear-gradient(135deg,#4facfe,#00f2fe)}
+.testi-name{font-size:0.85rem;font-weight:600;color:white}
+.testi-role{font-size:0.75rem;color:rgba(255,255,255,0.35)}
+
+/* CTA FINAL */
+.cta-section{padding:8rem 3rem;background:var(--ink);position:relative;overflow:hidden;text-align:center}
+.cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 80% at 50% 100%,rgba(232,55,42,0.2),transparent)}
+.cta-inner{position:relative;max-width:700px;margin:0 auto}
+.cta-section h2{font-family:'Syne',sans-serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:800;color:white;letter-spacing:-0.03em;line-height:1.05;margin-bottom:1rem}
+.cta-section h2 em{font-style:italic;font-family:'Instrument Serif',serif;font-weight:400;color:var(--red2)}
+.cta-section p{color:rgba(255,255,255,0.5);font-size:1rem;margin-bottom:2.5rem;line-height:1.7}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.cta-primary{background:var(--red);color:white;border:none;border-radius:12px;padding:1rem 2rem;font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;transition:background 0.2s,transform 0.1s}
+.cta-primary:hover{background:var(--red2);transform:scale(1.02)}
+.cta-secondary{background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.8);border:1.5px solid rgba(255,255,255,0.15);border-radius:12px;padding:1rem 2rem;font-family:'Syne',sans-serif;font-weight:600;font-size:1rem;cursor:pointer;transition:all 0.2s}
+.cta-secondary:hover{background:rgba(255,255,255,0.12);color:white}
+
+/* FOOTER */
+footer{background:#06080f;padding:3rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+footer .logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;color:white}
+footer .logo span{color:var(--red2)}
+footer p{color:rgba(255,255,255,0.25);font-size:0.8rem}
+
+/* TOAST */
+.toast{position:fixed;bottom:5rem;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:white;padding:0.75rem 1.5rem;border-radius:100px;font-size:0.85rem;font-weight:500;z-index:3000;opacity:0;transition:opacity 0.3s,transform 0.3s;pointer-events:none;border:1px solid rgba(255,255,255,0.1)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* DETAIL MODAL */
+.detail-modal{background:white;border-radius:24px;width:min(95vw,650px);max-height:90vh;overflow-y:auto;padding:0;transform:scale(0.95);transition:transform 0.3s cubic-bezier(0.16,1,0.3,1)}
+.modal-overlay.open .detail-modal{transform:scale(1)}
+.dm-hero{height:180px;display:flex;align-items:center;justify-content:center;font-size:4rem;position:relative;border-radius:20px 20px 0 0}
+.dm-hero-close{position:absolute;top:1rem;right:1rem;background:rgba(0,0,0,0.4);border:none;border-radius:50%;width:34px;height:34px;cursor:pointer;color:white;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:background 0.2s}
+.dm-hero-close:hover{background:rgba(0,0,0,0.7)}
+.dm-body{padding:2rem}
+.dm-level{font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.dm-name{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;margin-bottom:4px}
+.dm-loc{font-size:0.85rem;color:var(--muted);margin-bottom:1.5rem}
+.dm-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-radius:12px;overflow:hidden;margin-bottom:2rem}
+.dm-stat{background:white;padding:1rem;text-align:center}
+.dm-stat-val{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;color:var(--ink)}
+.dm-stat-lbl{font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--light);margin-top:2px}
+.dm-section-title{font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:0.75rem;margin-top:1.5rem}
+.dm-cost-row{display:flex;justify-content:space-between;align-items:center;padding:0.65rem 0;border-bottom:1px solid var(--border)}
+.dm-cost-row:last-child{border-bottom:none}
+.dm-cost-label{font-size:0.85rem;color:var(--muted)}
+.dm-cost-val{font-family:'Syne',sans-serif;font-size:0.92rem;font-weight:700;color:var(--ink)}
+.dm-facilities{display:flex;flex-wrap:wrap;gap:8px;margin-top:0.5rem}
+.dm-fac{background:#f3f4f6;border-radius:8px;padding:5px 12px;font-size:0.78rem;color:var(--muted);font-weight:500}
+.dm-enroll-btn{width:100%;background:var(--red);color:white;border:none;border-radius:12px;padding:1rem;font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;margin-top:1.5rem;transition:background 0.2s}
+.dm-enroll-btn:hover{background:var(--red2)}
+
+/* LOADING SCHOOL SKELETONS */
+.skeleton{background:linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:8px}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .school-grid{grid-template-columns:repeat(2,1fr)}
+  .plan-grid,.testi-grid{grid-template-columns:1fr}
+  .plan-card.featured{transform:none}
+  .phase-row,.trust-inner,.results-header{flex-direction:column;gap:1rem}
+  .hero-stats{position:static;flex-wrap:wrap;margin-top:3rem;justify-content:flex-start}
+  .trust-cards{flex-wrap:wrap}
+  nav{padding:1rem 1.5rem}
+  .hero,.section,.results-section,.quiz-section,.premium-section,.testi-section,.cta-section{padding-left:1.5rem;padding-right:1.5rem}
+  .trust{padding:3rem 1.5rem}
+}
+@media(max-width:600px){
+  .school-grid{grid-template-columns:1fr}
+  .quiz-options{grid-template-columns:1fr}
+  .result-cards-mini{grid-template-columns:1fr}
+  .compare-bar{padding:1rem}
+  .compare-slots{display:none}
+  .hero-headline{font-size:2.8rem}
+}
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<div class="toast" id="toast"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-logo">G<span>Edu</span></div>
+  <div class="nav-links">
+    <a href="#results">Cari Sekolah</a>
+    <a href="#universities">Universitas</a>
+    <a href="#agenluarnegeri">Agen LN</a>
+    <a href="#quiz">Rekomendasi AI</a>
+    <a href="#premium">Premium</a>
+    <a href="#premium" class="nav-cta">Mulai Gratis</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="hero-orb orb1"></div>
+    <div class="hero-orb orb2"></div>
+    <div class="hero-orb orb3"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-noise"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge"><div class="badge-dot"></div><span>Platform #1 Pencarian Sekolah Indonesia</span></div>
+    <h1 class="hero-headline">Pilih Sekolah<br>Terbaik,<br><em>Tanpa Ragu.</em></h1>
+    <p class="hero-sub">Bandingkan biaya real (SPP, uang pangkal, ekstrakurikuler), fasilitas, dan prestasi ribuan sekolah swasta — transparan, terverifikasi, sesuai budgetmu.</p>
+
+    <div class="search-wrap">
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Cari nama sekolah, kota, atau kecamatan..." oninput="handleSearch(this.value)" autocomplete="off">
+        <div class="search-filters">
+          <div class="sf-tag active" onclick="setLevel('all',this)">Semua</div>
+          <div class="sf-tag" onclick="setLevel('SD',this)">SD</div>
+          <div class="sf-tag" onclick="setLevel('SMP',this)">SMP</div>
+          <div class="sf-tag" onclick="setLevel('SMA',this)">SMA</div>
+          <div class="sf-tag" onclick="setLevel('Univ',this)">Univ</div>
+        </div>
+        <button class="search-btn" onclick="triggerSearch()">🔍 Cari</button>
+      </div>
+      <div class="hero-hints">
+        <span class="hint">Pencarian populer:</span>
+        <span class="hint-tag" onclick="quickSearch('Sekolah Islam Solo')">Sekolah Islam Solo</span>
+        <span class="hint-tag" onclick="quickSearch('SMA terbaik Surakarta')">SMA terbaik Surakarta</span>
+        <span class="hint-tag" onclick="quickSearch('SD bilingual')">SD bilingual</span>
+        <span class="hint-tag" onclick="quickSearch('Sekolah budget 2 juta')">Budget &lt;2 juta/bln</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="hstat">
+      <div class="hstat-num" id="statSchools">0<span>+</span></div>
+      <div class="hstat-label">Sekolah Terverifikasi</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-num" id="statCities">0<span>+</span></div>
+      <div class="hstat-label">Kota di Indonesia</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-num" id="statFam">0<span>K</span></div>
+      <div class="hstat-label">Keluarga Terbantu</div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker" id="tickerInner"></div>
+</div>
+
+<!-- TRUST STRIP -->
+<div class="trust">
+  <div class="trust-inner">
+    <div class="trust-text">
+      <h2>Data nyata. Bukan brosur sekolah.</h2>
+      <p>Tim GEdu melakukan verifikasi langsung ke setiap sekolah — bukan hanya mengandalkan informasi dari website resmi. Karena orangtua berhak tahu biaya sebenarnya sebelum daftar.</p>
+    </div>
+    <div class="trust-cards">
+      <div class="trust-card"><div class="trust-num">100<em>%</em></div><div class="trust-lbl">Data Diverifikasi</div></div>
+      <div class="trust-card"><div class="trust-num">0</div><div class="trust-lbl">Biaya Tersembunyi</div></div>
+      <div class="trust-card"><div class="trust-num">4.9<em>★</em></div><div class="trust-lbl">Rating Pengguna</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SCHOOL RESULTS -->
+<section class="results-section" id="results">
+  <div class="results-header">
+    <div>
+      <div class="section-label">Direktori Sekolah</div>
+      <div class="results-title">Sekolah Swasta Terbaik di Solo, Bandung, Semarang & Sekitarnya</div>
+    </div>
+    <div class="results-count">Menampilkan <strong id="resultCount">6</strong> sekolah</div>
+  </div>
+
+  <div class="filter-row" id="filterRow">
+    <button class="filter-btn active" onclick="filterCards('all',this)">Semua</button>
+    <button class="filter-btn" onclick="filterCards('SD',this)">SD</button>
+    <button class="filter-btn" onclick="filterCards('SMP',this)">SMP</button>
+    <button class="filter-btn" onclick="filterCards('SMA',this)">SMA</button>
+    <button class="filter-btn" onclick="filterCards('islam',this)">Islam</button>
+    <button class="filter-btn" onclick="filterCards('kristen',this)">Kristen/Katolik</button>
+    <button class="filter-btn" onclick="filterCards('bilingual',this)">Bilingual</button>
+    <button class="filter-btn" onclick="filterCards('budget',this)">Budget Friendly</button>
+    <button class="filter-btn" onclick="filterCards('solo',this)">📍 Solo / Surakarta</button>
+    <button class="filter-btn" onclick="filterCards('bandung',this)">📍 Bandung</button>
+    <button class="filter-btn" onclick="filterCards('semarang',this)">📍 Semarang</button>
+    <button class="filter-btn" onclick="filterCards('sragen',this)">📍 Sragen</button>
+  </div>
+
+  <div class="school-grid" id="schoolGrid"></div>
+</section>
+
+<!-- UNIVERSITY SECTION -->
+<section class="results-section" id="universities" style="background:#f0ede8;padding-top:5rem;padding-bottom:5rem">
+  <div class="results-header" style="max-width:1100px;margin:0 auto 2rem">
+    <div>
+      <div class="section-label">🎓 Direktori Perguruan Tinggi</div>
+      <div class="results-title">Universitas & Kampus Terbaik</div>
+      <p style="font-size:0.88rem;color:var(--muted);margin-top:0.5rem;max-width:500px">Temukan kampus impianmu — bandingkan UKT, program studi, fasilitas, dan reputasi secara transparan.</p>
+    </div>
+    <div class="results-count">Menampilkan <strong id="univCount">4</strong> kampus</div>
+  </div>
+
+  <div class="filter-row" id="univFilterRow" style="max-width:1100px;margin:0 auto 2rem;flex-wrap:wrap">
+    <button class="filter-btn active" onclick="filterUniv('all',this)">Semua Kampus</button>
+    <button class="filter-btn" onclick="filterUniv('negeri',this)">PTN (Negeri)</button>
+    <button class="filter-btn" onclick="filterUniv('teknologi',this)">Teknologi & IT</button>
+    <button class="filter-btn" onclick="filterUniv('bisnis',this)">Bisnis</button>
+    <button class="filter-btn" onclick="filterUniv('kristen',this)">Kristen/Katolik</button>
+    <button class="filter-btn" onclick="filterUniv('top',this)">Top Ranking</button>
+  </div>
+
+  <div class="school-grid" id="univGrid" style="max-width:1100px;margin:0 auto"></div>
+</section>
+
+<!-- AGENT LUAR NEGERI SECTION -->
+<section class="results-section" id="agenluarnegeri" style="background:var(--ink2);padding-top:5rem;padding-bottom:5rem">
+  <div style="max-width:1100px;margin:0 auto">
+    <div class="results-header" style="margin-bottom:2.5rem">
+      <div>
+        <div class="section-label" style="color:var(--red2)">✈️ Studi ke Luar Negeri</div>
+        <div class="results-title" style="color:white">Agent Luar Negeri <em style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:rgba(255,255,255,0.4)">di Solo</em></div>
+        <p style="font-size:0.88rem;color:rgba(255,255,255,0.45);margin-top:0.5rem;max-width:540px;line-height:1.7">Ingin kuliah atau kursus bahasa di luar negeri? Agen-agen terpercaya berbasis di Solo ini siap membantumu dari persiapan dokumen hingga keberangkatan.</p>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem" id="agentGrid">
+
+      <!-- Gema Sprachzentrum -->
+      <div class="school-card" style="background:#111827;border-color:rgba(255,255,255,0.08)">
+        <div class="card-top" style="background:linear-gradient(135deg,#0a1a3a,#1e3a6e);height:130px;display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative">
+          🇩🇪
+          <span class="card-badge badge-top" style="position:absolute;top:10px;left:10px">Unggulan</span>
+        </div>
+        <div class="card-body">
+          <div class="school-level" style="color:rgba(255,255,255,0.3)">Kursus Bahasa & Study Abroad</div>
+          <div class="school-name" style="color:white">Gema Sprachzentrum</div>
+          <div class="school-loc" style="color:rgba(255,255,255,0.4)">Solo / Surakarta</div>
+          <div class="cost-row"><span class="cost-label" style="color:rgba(255,255,255,0.35)">Destinasi Utama</span><span class="cost-val" style="color:white;font-size:0.82rem">Jerman & Eropa</span></div>
+          <div class="cost-row"><span class="cost-label" style="color:rgba(255,255,255,0.35)">Layanan</span><span class="cost-val" style="color:white;font-size:0.78rem">Kursus Bahasa Jerman, Visa, Uni</span></div>
+          <div class="cost-row"><span class="cost-label" style="color:rgba(255,255,255,0.35)">Sertifikasi</span><span class="cost-val" style="color:white;font-size:0.82rem">Goethe-Institut</span></div>
+          <div class="card-meta" style="border-color:rgba(255,255,255,0.08)">
+            <div class="star-row" style="color:white"><span class="stars">★</span>4.9 <span style="color:rgba(255,255,255,0.3);font-weight:400">(187 ulasan)</span></div>
+            <div class="meta-tags">
+              <span class="mtag" style="background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.5)">Jerman</span>
+              <span class="mtag" style="background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.5)">Eropa</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-actions">
+          <button class="btn-detail" style="background:var(--red)" onclick="showToast('Menghubungi Gema Sprachzentrum... 🇩🇪')">Konsultasi Gratis</button>
+          <button class="btn-compare" style="background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.7)" onclick="showToast('Info program Gema dikirim ke WA kamu! 📲')">+ Info</button>
+        </div>
+      </div>
+
+      <!-- Greatwall Education -->
+      <div class="school-card" style="background:#111827;border-color:rgba(255,255,255,0.08)">
+        <div class="card-top" style="background:linear-gradient(135deg,#1a0a0a,#6e1e1e);height:130px;display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative">
+          🇨🇳
+          <span class="card-badge badge-top" style="position:absolute;top:10px;left:10px">Terpercaya</span>
+        </div>
+        <div class="card-body">
+          <div class="school-level" style="color:rgba(255,255,255,0.3)">Agen Studi Luar Negeri</div>
+          <div class="school-name" style="color:white">Greatwall Education Solo</div>
+          <div class="school-loc" style="color:rgba(255,255,255,0.4)">Solo / Surakarta</div>
+          <div class="cost-row"><span class="cost-label" style="color:rgba(255,255,255,0.35)">Destinasi Utama</span><span class="cost-val" style="color:white;font-size:0.82rem">China & Asia Timur</span></div>
+          <div class="cost-row"><span class="cost-label" style="color:rgba(255,255,255,0.35)">Layanan</span><span class="cost-val" style="color:white;font-size:0.78rem">Beasiswa, Visa, Pendaftaran Uni</span></div>
+          <div class="cost-row"><span class="cost-label" style="color:rgba(255,255,255,0.35)">Bahasa</span><span class="cost-val" style="color:white;font-size:0.82rem">Mandarin & Inggris</span></div>
+          <div class="card-meta" style="border-color:rgba(255,255,255,0.08)">
+            <div class="star-row" style="color:white"><span class="stars">★</span>4.8 <span style="color:rgba(255,255,255,0.3);font-weight:400">(214 ulasan)</span></div>
+            <div class="meta-tags">
+              <span class="mtag" style="background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.5)">China</span>
+              <span class="mtag" style="background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.5)">Beasiswa</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-actions">
+          <button class="btn-detail" style="background:var(--red)" onclick="showToast('Menghubungi Greatwall Education... 🇨🇳')">Konsultasi Gratis</button>
+          <button class="btn-compare" style="background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.7)" onclick="showToast('Info beasiswa Greatwall dikirim ke WA kamu! 📲')">+ Info</button>
+        </div>
+      </div>
+
+      <!-- EduGlobal Solo -->
+      <div class="school-card" style="background:#111827;border-color:rgba(255,255,255,0.08)">
+        <div class="card-top" style="background:linear-gradient(135deg,#0a1a10,#1e5f35);height:130px;display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative">
+          🌏
+          <span class="card-badge badge-verified" style="position:absolute;top:10px;left:10px">Terverifikasi</span>
+        </div>
+        <div class="card-body">
+          <div class="school-level" style="color:rgba(255,255,255,0.3)">Agen Studi Internasional</div>
+          <div class="school-name" style="color:white">EduGlobal Solo</div>
+          <div class="school-loc" style="color:rgba(255,255,255,0.4)">Laweyan, Surakarta</div>
+          <div class="cost-row"><span class="cost-label" style="color:rgba(255,255,255,0.35)">Destinasi Utama</span><span class="cost-val" style="color:white;font-size:0.82rem">Australia, UK, USA</span></div>
+          <div class="cost-row"><span class="cost-label" style="color:rgba(255,255,255,0.35)">Layanan</span><span class="cost-val" style="color:white;font-size:0.78rem">IELTS, Visa, Akomodasi</span></div>
+          <div class="cost-row"><span class="cost-label" style="color:rgba(255,255,255,0.35)">Partner</span><span class="cost-val" style="color:white;font-size:0.82rem">100+ Univ. Mitra</span></div>
+          <div class="card-meta" style="border-color:rgba(255,255,255,0.08)">
+            <div class="star-row" style="color:white"><span class="stars">★</span>4.7 <span style="color:rgba(255,255,255,0.3);font-weight:400">(156 ulasan)</span></div>
+            <div class="meta-tags">
+              <span class="mtag" style="background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.5)">Australia</span>
+              <span class="mtag" style="background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.5)">UK</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-actions">
+          <button class="btn-detail" style="background:var(--red)" onclick="showToast('Menghubungi EduGlobal Solo... 🌏')">Konsultasi Gratis</button>
+          <button class="btn-compare" style="background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.7)" onclick="showToast('Info program EduGlobal dikirim ke WA kamu! 📲')">+ Info</button>
+        </div>
+      </div>
+
+      <!-- IDP Education Solo -->
+      <div class="school-card" style="background:#111827;border-color:rgba(255,255,255,0.08)">
+        <div class="card-top" style="background:linear-gradient(135deg,#0f0a1a,#3d1e5f);height:130px;display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative">
+          🇦🇺
+          <span class="card-badge badge-top" style="position:absolute;top:10px;left:10px">Resmi</span>
+        </div>
+        <div class="card-body">
+          <div class="school-level" style="color:rgba(255,255,255,0.3)">Agen Studi & Test Center</div>
+          <div class="school-name" style="color:white">IDP Education Solo</div>
+          <div class="school-loc" style="color:rgba(255,255,255,0.4)">Banjarsari, Surakarta</div>
+          <div class="cost-row"><span class="cost-label" style="color:rgba(255,255,255,0.35)">Destinasi Utama</span><span class="cost-val" style="color:white;font-size:0.82rem">Australia, NZ, Kanada</span></div>
+          <div class="cost-row"><span class="cost-label" style="color:rgba(255,255,255,0.35)">Layanan</span><span class="cost-val" style="color:white;font-size:0.78rem">IELTS Official, Visa, Admission</span></div>
+          <div class="cost-row"><span class="cost-label" style="color:rgba(255,255,255,0.35)">Status</span><span class="cost-val" style="color:white;font-size:0.82rem">Authorized IELTS Center</span></div>
+          <div class="card-meta" style="border-color:rgba(255,255,255,0.08)">
+            <div class="star-row" style="color:white"><span class="stars">★</span>4.9 <span style="color:rgba(255,255,255,0.3);font-weight:400">(298 ulasan)</span></div>
+            <div class="meta-tags">
+              <span class="mtag" style="background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.5)">IELTS</span>
+              <span class="mtag" style="background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.5)">Australia</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-actions">
+          <button class="btn-detail" style="background:var(--red)" onclick="showToast('Menghubungi IDP Education... 🇦🇺')">Konsultasi Gratis</button>
+          <button class="btn-compare" style="background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.7)" onclick="showToast('Info IELTS & studi IDP dikirim ke WA kamu! 📲')">+ Info</button>
+        </div>
+      </div>
+
+      <!-- StudyAbroad Solo -->
+      <div class="school-card" style="background:#111827;border-color:rgba(255,255,255,0.08)">
+        <div class="card-top" style="background:linear-gradient(135deg,#0a1a18,#1e4f5f);height:130px;display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative">
+          🇯🇵
+          <span class="card-badge badge-new" style="position:absolute;top:10px;left:10px">Baru</span>
+        </div>
+        <div class="card-body">
+          <div class="school-level" style="color:rgba(255,255,255,0.3)">Agen Studi Luar Negeri</div>
+          <div class="school-name" style="color:white">Japan Study Center Solo</div>
+          <div class="school-loc" style="color:rgba(255,255,255,0.4)">Jebres, Surakarta</div>
+          <div class="cost-row"><span class="cost-label" style="color:rgba(255,255,255,0.35)">Destinasi Utama</span><span class="cost-val" style="color:white;font-size:0.82rem">Jepang & Korea Selatan</span></div>
+          <div class="cost-row"><span class="cost-label" style="color:rgba(255,255,255,0.35)">Layanan</span><span class="cost-val" style="color:white;font-size:0.78rem">JLPT, Beasiswa Monbukagakusho</span></div>
+          <div class="cost-row"><span class="cost-label" style="color:rgba(255,255,255,0.35)">Bahasa</span><span class="cost-val" style="color:white;font-size:0.82rem">Jepang & Korea</span></div>
+          <div class="card-meta" style="border-color:rgba(255,255,255,0.08)">
+            <div class="star-row" style="color:white"><span class="stars">★</span>4.8 <span style="color:rgba(255,255,255,0.3);font-weight:400">(132 ulasan)</span></div>
+            <div class="meta-tags">
+              <span class="mtag" style="background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.5)">Jepang</span>
+              <span class="mtag" style="background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.5)">JLPT</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-actions">
+          <button class="btn-detail" style="background:var(--red)" onclick="showToast('Menghubungi Japan Study Center... 🇯🇵')">Konsultasi Gratis</button>
+          <button class="btn-compare" style="background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.7)" onclick="showToast('Info program Jepang dikirim ke WA kamu! 📲')">+ Info</button>
+        </div>
+      </div>
+
+      <!-- EF Education First Solo -->
+      <div class="school-card" style="background:#111827;border-color:rgba(255,255,255,0.08)">
+        <div class="card-top" style="background:linear-gradient(135deg,#1a1a0a,#5f5a1e);height:130px;display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative">
+          🌍
+          <span class="card-badge badge-verified" style="position:absolute;top:10px;left:10px">Terverifikasi</span>
+        </div>
+        <div class="card-body">
+          <div class="school-level" style="color:rgba(255,255,255,0.3)">Kursus & Agen Studi</div>
+          <div class="school-name" style="color:white">EF Education First Solo</div>
+          <div class="school-loc" style="color:rgba(255,255,255,0.4)">Serengan, Surakarta</div>
+          <div class="cost-row"><span class="cost-label" style="color:rgba(255,255,255,0.35)">Destinasi Utama</span><span class="cost-val" style="color:white;font-size:0.82rem">USA, UK, Eropa, Global</span></div>
+          <div class="cost-row"><span class="cost-label" style="color:rgba(255,255,255,0.35)">Layanan</span><span class="cost-val" style="color:white;font-size:0.78rem">Kursus Bahasa, Gap Year, Uni</span></div>
+          <div class="cost-row"><span class="cost-label" style="color:rgba(255,255,255,0.35)">Program</span><span class="cost-val" style="color:white;font-size:0.82rem">50+ Negara Tujuan</span></div>
+          <div class="card-meta" style="border-color:rgba(255,255,255,0.08)">
+            <div class="star-row" style="color:white"><span class="stars">★</span>4.7 <span style="color:rgba(255,255,255,0.3);font-weight:400">(243 ulasan)</span></div>
+            <div class="meta-tags">
+              <span class="mtag" style="background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.5)">Global</span>
+              <span class="mtag" style="background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.5)">Bahasa</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-actions">
+          <button class="btn-detail" style="background:var(--red)" onclick="showToast('Menghubungi EF Education First... 🌍')">Konsultasi Gratis</button>
+          <button class="btn-compare" style="background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.7)" onclick="showToast('Info program EF dikirim ke WA kamu! 📲')">+ Info</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Info Banner -->
+    <div style="margin-top:2.5rem;background:rgba(232,55,42,0.1);border:1px solid rgba(232,55,42,0.25);border-radius:16px;padding:1.5rem 2rem;display:flex;align-items:center;gap:1.5rem;max-width:1100px">
+      <div style="font-size:2rem;flex-shrink:0">💡</div>
+      <div>
+        <div style="font-family:'Syne',sans-serif;font-weight:700;color:white;margin-bottom:0.25rem;font-size:0.95rem">Butuh bantuan memilih agen yang tepat?</div>
+        <div style="font-size:0.83rem;color:rgba(255,255,255,0.5);line-height:1.6">Konsultasikan tujuan studimu dengan tim GEdu — kami bantu kamu memilih agen, program, dan destinasi yang paling sesuai budget dan minatmu. Gratis tanpa komitmen.</div>
+      </div>
+      <button style="flex-shrink:0;background:var(--red);color:white;border:none;border-radius:10px;padding:0.7rem 1.5rem;font-family:'Syne',sans-serif;font-weight:700;font-size:0.85rem;cursor:pointer;white-space:nowrap;transition:background 0.2s" onmouseover="this.style.background='var(--red2)'" onmouseout="this.style.background='var(--red)'" onclick="showToast('Tim GEdu akan segera menghubungimu! 🚀')">Konsultasi Sekarang</button>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARE BAR -->
+<div class="compare-bar" id="compareBar">
+  <div class="compare-slots" id="compareSlots">
+    <div class="compare-slot" id="slot0">Pilih sekolah untuk dibandingkan...</div>
+    <div class="compare-slot" id="slot1">+ Tambah sekolah kedua</div>
+  </div>
+  <span class="compare-clear" onclick="clearCompare()">✕ Hapus semua</span>
+  <button class="compare-cta" id="compareCta" onclick="openCompare()" disabled>Bandingkan Sekarang</button>
+</div>
+
+<!-- AI QUIZ SECTION -->
+<section class="quiz-section" id="quiz">
+  <div class="quiz-inner">
+    <div class="section-label">🤖 Rekomendasi AI</div>
+    <h2 class="section-title">GEdu AI akan<br>carikan sekolah <em>idealmu</em></h2>
+    <p>Jawab 4 pertanyaan cepat. AI kami akan langsung mencocokkan profil anakmu dengan sekolah yang paling sesuai — dari ribuan pilihan.</p>
+
+    <div class="quiz-box">
+      <div class="quiz-progress" id="quizProgress">
+        <div class="qp-dot active" id="p0"></div>
+        <div class="qp-dot" id="p1"></div>
+        <div class="qp-dot" id="p2"></div>
+        <div class="qp-dot" id="p3"></div>
+      </div>
+
+      <div class="quiz-step active" id="qs0">
+        <div class="quiz-q">Anakmu akan masuk jenjang apa? 🎓</div>
+        <div class="quiz-options">
+          <button class="q-opt" onclick="selectOpt(this,0)">SD (Sekolah Dasar)</button>
+          <button class="q-opt" onclick="selectOpt(this,0)">SMP (Sekolah Menengah Pertama)</button>
+          <button class="q-opt" onclick="selectOpt(this,0)">SMA / SMK</button>
+          <button class="q-opt" onclick="selectOpt(this,0)">Kuliah / Perguruan Tinggi</button>
+        </div>
+      </div>
+
+      <div class="quiz-step" id="qs1">
+        <div class="quiz-q">Berapa budget SPP per bulan yang nyaman? 💰</div>
+        <div class="quiz-options">
+          <button class="q-opt" onclick="selectOpt(this,1)">Di bawah Rp 500rb/bulan</button>
+          <button class="q-opt" onclick="selectOpt(this,1)">Rp 500rb – 1,5 juta</button>
+          <button class="q-opt" onclick="selectOpt(this,1)">Rp 1,5 – 3 juta</button>
+          <button class="q-opt" onclick="selectOpt(this,1)">Di atas Rp 3 juta</button>
+        </div>
+      </div>
+
+      <div class="quiz-step" id="qs2">
+        <div class="quiz-q">Apa yang paling penting buat keluargamu? 🌟</div>
+        <div class="quiz-options">
+          <button class="q-opt" onclick="selectOpt(this,2)">Pendidikan agama yang kuat</button>
+          <button class="q-opt" onclick="selectOpt(this,2)">Kurikulum akademik unggulan</button>
+          <button class="q-opt" onclick="selectOpt(this,2)">Fasilitas & ekskul lengkap</button>
+          <button class="q-opt" onclick="selectOpt(this,2)">Bilingual / internasional</button>
+        </div>
+      </div>
+
+      <div class="quiz-step" id="qs3">
+        <div class="quiz-q">Di area mana kamu cari sekolah? 📍</div>
+        <div class="quiz-options">
+          <button class="q-opt" onclick="selectOpt(this,3)">Solo / Surakarta</button>
+          <button class="q-opt" onclick="selectOpt(this,3)">Semarang</button>
+          <button class="q-opt" onclick="selectOpt(this,3)">Yogyakarta</button>
+          <button class="q-opt" onclick="selectOpt(this,3)">Kota lain di Jawa</button>
+        </div>
+      </div>
+
+      <div class="quiz-step" id="qs-result">
+        <div class="quiz-result">
+          <div style="font-size:2.5rem;margin-bottom:0.75rem">🎯</div>
+          <h3>Rekomendasi untukmu</h3>
+          <p>Berdasarkan profil anakmu, kami menemukan <strong style="color:var(--red2)">3 sekolah terbaik</strong> yang cocok:</p>
+          <div class="result-cards-mini" id="resultCardsMini"></div>
+          <button class="quiz-cta-btn" onclick="scrollToResults()">Lihat Semua Sekolah yang Cocok →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PREMIUM -->
+<section class="premium-section" id="premium">
+  <div class="premium-inner">
+    <div class="section-label">Paket Layanan</div>
+    <h2 class="section-title">Pilih yang paling<br><em>sesuai kebutuhanmu</em></h2>
+    <div class="plan-grid">
+      <div class="plan-card">
+        <div class="plan-label">Untuk semua orangtua</div>
+        <div class="plan-name">Gratis</div>
+        <div class="plan-price">Rp 0 <span>/selamanya</span></div>
+        <div class="plan-desc">Mulai cari dan bandingkan sekolah tanpa biaya apapun.</div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li><span class="feat-check">✓</span> Akses database sekolah lengkap</li>
+          <li><span class="feat-check">✓</span> Perbandingan biaya real (SPP, dll)</li>
+          <li><span class="feat-check">✓</span> Filter by lokasi, jenjang, biaya</li>
+          <li><span class="feat-check">✓</span> Simpan hingga 5 sekolah favorit</li>
+          <li><span class="feat-x">–</span> Rekomendasi AI personal</li>
+          <li><span class="feat-x">–</span> Konsultasi 1-on-1</li>
+        </ul>
+        <button class="plan-btn" onclick="showToast('Akun gratis berhasil dibuat! 🎉')">Mulai Gratis Sekarang</button>
+      </div>
+
+      <div class="plan-card featured">
+        <div class="plan-label">⭐ Paling Populer</div>
+        <div class="plan-name">Premium</div>
+        <div class="plan-price">Rp 99K <span>/bulan</span></div>
+        <div class="plan-desc">Untuk orangtua yang mau keputusan terbaik tanpa stress.</div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li><span class="feat-check">✓</span> Semua fitur Gratis</li>
+          <li><span class="feat-check">✓</span> Rekomendasi AI berdasarkan profil anak</li>
+          <li><span class="feat-check">✓</span> Info kos/apartemen dekat kampus</li>
+          <li><span class="feat-check">✓</span> Direktori bimbel & tutor terpercaya</li>
+          <li><span class="feat-check">✓</span> Roadmap pendidikan personal</li>
+          <li><span class="feat-check">✓</span> 1 sesi konsultasi per bulan</li>
+        </ul>
+        <button class="plan-btn" onclick="showToast('Coba Premium 7 hari gratis! 🚀')">Coba 7 Hari Gratis</button>
+      </div>
+
+      <div class="plan-card">
+        <div class="plan-label">Untuk sekolah & institusi</div>
+        <div class="plan-name">Sekolah B2B</div>
+        <div class="plan-price">Rp 500K <span>/bulan</span></div>
+        <div class="plan-desc">Tingkatkan enrollment dengan lead dari orangtua yang sudah siap mendaftar.</div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li><span class="feat-check">✓</span> Profil sekolah terverifikasi</li>
+          <li><span class="feat-check">✓</span> Priority placement di hasil pencarian</li>
+          <li><span class="feat-check">✓</span> Dashboard lead generation</li>
+          <li><span class="feat-check">✓</span> Badge "Sekolah Transparan"</li>
+          <li><span class="feat-check">✓</span> Analitik & laporan bulanan</li>
+          <li><span class="feat-check">✓</span> Support dedicated</li>
+        </ul>
+        <button class="plan-btn" onclick="showToast('Tim kami akan segera menghubungi Anda! 📞')">Hubungi Tim GEdu</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi-section">
+  <div class="testi-inner">
+    <div class="section-label">Cerita Nyata</div>
+    <h2 class="section-title" style="color:white">Mereka sudah<br><em style="color:rgba(255,255,255,0.4)">merasakan manfaatnya</em></h2>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Dulu saya harus telepon satu-satu sekolah untuk tanya biaya. Sekarang bisa bandingkan 10 sekolah dalam 5 menit. GEdu benar-benar menghemat waktu dan tenaga saya."</p>
+        <div class="testi-author">
+          <div class="testi-avatar av1">👩</div>
+          <div>
+            <div class="testi-name">Ibu Sari W.</div>
+            <div class="testi-role">Orangtua siswa SMP — Solo</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Anak saya mau masuk SMA. Saya kaget ternyata ada biaya uang pangkal yang tidak pernah disebutkan di brosur. GEdu kasih info lengkap sebelum kami terlanjur daftar."</p>
+        <div class="testi-author">
+          <div class="testi-avatar av2">👨</div>
+          <div>
+            <div class="testi-name">Bapak Reza A.</div>
+            <div class="testi-role">Orangtua siswa SMA — Semarang</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Fitur rekomendasi AI-nya luar biasa. Saya input budget dan kota, langsung muncul 3 rekomendasi yang sangat relevan. Akhirnya pilih sekolah yang cocok tanpa harus survey keliling kota."</p>
+        <div class="testi-author">
+          <div class="testi-avatar av3">👩</div>
+          <div>
+            <div class="testi-name">Ibu Dewi P.</div>
+            <div class="testi-role">Orangtua siswa SD — Yogyakarta</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <h2>Keputusan terbaik<br>dimulai dari <em>data yang benar.</em></h2>
+    <p>Bergabung dengan ribuan orangtua Indonesia yang sudah menemukan sekolah impian anaknya lewat GEdu — gratis, transparan, tanpa tekanan.</p>
+    <div class="cta-btns">
+      <button class="cta-primary" onclick="showToast('Selamat datang di GEdu! 🎉')">Mulai Cari Sekolah Gratis</button>
+      <button class="cta-secondary" onclick="document.getElementById('quiz').scrollIntoView({behavior:'smooth'})">Coba Rekomendasi AI →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">G<span>Edu</span></div>
+  <p>© 2025 GEdu — Transparansi untuk pendidikan Indonesia yang lebih baik.</p>
+  <p style="color:rgba(255,255,255,0.2);font-size:0.75rem">Surakarta, Jawa Tengah 🇮🇩</p>
+</footer>
+
+<!-- COMPARE MODAL -->
+<div class="modal-overlay" id="compareModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">⚖️ Perbandingan Sekolah</div>
+      <button class="modal-close" onclick="closeModal('compareModal')">✕</button>
+    </div>
+    <div id="compareTableWrap"></div>
+  </div>
+</div>
+
+<!-- DETAIL MODAL -->
+<div class="modal-overlay" id="detailModal">
+  <div class="detail-modal" id="detailContent"></div>
+</div>
+
+<script>
+// ─── DATA ───────────────────────────────────────────────
+const schools = [
+  {
+    id:0, name:"SDIT Al-Abidin", level:"SD", tags:["islam","verified","solo"],
+    loc:"Banjarsari, Surakarta", emoji:"🕌", topClass:"card-top-1",
+    spp:800000, pangkal:8000000, ekskul:150000,
+    rating:4.9, votes:312, badge:"badge-verified", badgeText:"Terverifikasi",
+    facilities:["Lab Komputer","Masjid","Perpustakaan","Kolam Renang","Lapangan Futsal"],
+    desc:"Sekolah Islam terpadu unggulan di Solo dengan kurikulum Al-Quran terintegrasi. Lulusan 90%+ masuk SMP favorit.",
+    prestasi:["Juara 1 Olimpiade MIPA Kota 2024","KSM Tingkat Provinsi 2023","Akreditasi A"],
+  },
+  {
+    id:1, name:"SMP Batik 1 Surakarta", level:"SMP", tags:["verified","top","solo"],
+    loc:"Laweyan, Surakarta", emoji:"🎓", topClass:"card-top-2",
+    spp:600000, pangkal:5000000, ekskul:100000,
+    rating:4.7, votes:284, badge:"badge-top", badgeText:"Top Sekolah",
+    facilities:["Lab Sains","Aula","Lapangan Basket","Perpustakaan Digital","Studio Musik"],
+    desc:"SMP swasta senior di Laweyan dengan rekam jejak akademik solid. Pilihan utama keluarga pekerja menengah Solo.",
+    prestasi:["OSN Matematika Provinsi 2024","Juara Tari Daerah Tingkat Kota","Akreditasi A"],
+  },
+  {
+    id:2, name:"SMA Warga Surakarta", level:"SMA", tags:["verified","bilingual","solo"],
+    loc:"Jebres, Surakarta", emoji:"📚", topClass:"card-top-3",
+    spp:1200000, pangkal:12000000, ekskul:200000,
+    rating:4.8, votes:198, badge:"badge-verified", badgeText:"Terverifikasi",
+    facilities:["Lab Kimia & Fisika","Lapangan Olahraga","Aula","Perpustakaan","Ruang Seni"],
+    desc:"SMA swasta terkemuka dengan program bilingual English. Tingkat kelulusan PTN 85% dalam 3 tahun terakhir.",
+    prestasi:["OSN Fisika Nasional 2023","English Debate Champion Jateng 2024","Akreditasi A+"],
+  },
+  {
+    id:3, name:"SD Islam Terpadu Nur Hidayah", level:"SD", tags:["islam","budget","solo"],
+    loc:"Pajang, Surakarta", emoji:"🌙", topClass:"card-top-4",
+    spp:450000, pangkal:4500000, ekskul:75000,
+    rating:4.6, votes:267, badge:"badge-verified", badgeText:"Terverifikasi",
+    facilities:["Mushola","Lab Komputer","Perpustakaan","Taman Bermain"],
+    desc:"Pilihan terjangkau dengan nilai Islam yang kuat. SPP paling kompetitif di kelasnya, tanpa mengorbankan kualitas.",
+    prestasi:["Hafidz Quran 5 Juz 100% Siswa","Juara Cerdas Cermat Agama Kota 2024","Akreditasi B+"],
+  },
+  {
+    id:4, name:"SMP Kristen 1 Surakarta", level:"SMP", tags:["verified","bilingual","kristen","solo"],
+    loc:"Serengan, Surakarta", emoji:"✝️", topClass:"card-top-5",
+    spp:950000, pangkal:9500000, ekskul:175000,
+    rating:4.7, votes:153, badge:"badge-verified", badgeText:"Terverifikasi",
+    facilities:["Lab Komputer","Kapel","Lapangan Tenis","Studio Seni","Kelas Musik"],
+    desc:"SMP dengan program seni dan musik terbaik di Solo. Lingkungan belajar kondusif dengan rasio guru:siswa 1:18.",
+    prestasi:["FLS2N Provinsi Juara 1 Piano 2024","Kompetisi Robotik Nasional 2023","Akreditasi A"],
+  },
+  {
+    id:5, name:"SMA Muhammadiyah 1 Surakarta", level:"SMA", tags:["islam","verified","top","solo"],
+    loc:"Kauman, Surakarta", emoji:"⭐", topClass:"card-top-6",
+    spp:750000, pangkal:7500000, ekskul:125000,
+    rating:4.8, votes:421, badge:"badge-top", badgeText:"Top Sekolah",
+    facilities:["Masjid Agung","Lab Lengkap","Asrama Putra/Putri","Lapangan Multi","Kantin Sehat"],
+    desc:"SMA Islam legendaris di Kauman dengan tradisi panjang akademik dan keagamaan. Alumni tersebar di PTN top Indonesia.",
+    prestasi:["UN Nilai Tertinggi Kota 2024","MTQ Provinsi Juara Umum","Akreditasi A+"],
+  },
+  {
+    id:6, name:"SD–SMP–SMA Pelita Nusantara Kasih", level:"SD/SMP/SMA", tags:["verified","kristen","bilingual","solo"],
+    loc:"Banjarsari, Surakarta", emoji:"🕊️", topClass:"card-top-1",
+    spp:1100000, pangkal:11000000, ekskul:180000,
+    rating:4.7, votes:176, badge:"badge-verified", badgeText:"Terverifikasi",
+    facilities:["Perpustakaan Digital","Lab Sains","Lab Komputer","Kapel","Lapangan Olahraga","Studio Seni"],
+    desc:"Sekolah Kristen terpadu dari jenjang SD hingga SMA dengan pendekatan pendidikan holistik, berakhlak, dan berprestasi. Dikenal dengan komunitas yang hangat dan pembinaan karakter yang konsisten.",
+    prestasi:["Juara Lomba Sains Tingkat Kota 2024","FLS2N Provinsi Bidang Teater 2023","Akreditasi A"],
+  },
+  {
+    id:7, name:"SMP Regina Pacis Surakarta", level:"SMP", tags:["verified","kristen","bilingual","solo"],
+    loc:"Laweyan, Surakarta", emoji:"🌹", topClass:"card-top-5",
+    spp:900000, pangkal:9000000, ekskul:150000,
+    rating:4.8, votes:203, badge:"badge-verified", badgeText:"Terverifikasi",
+    facilities:["Perpustakaan","Lab IPA","Lab Komputer","Kapel","Lapangan Basket","Ruang Musik"],
+    desc:"SMP Katolik bergengsi di Solo dengan kurikulum bermutu tinggi dan pembinaan iman Kristiani. Dikenal menghasilkan lulusan dengan karakter kuat dan prestasi akademik unggul.",
+    prestasi:["OSN IPA Provinsi 2024","Juara Paduan Suara Tingkat Kota 2023","Akreditasi A"],
+  },
+  {
+    id:8, name:"SMA Regina Pacis Surakarta", level:"SMA", tags:["verified","kristen","bilingual","top","solo"],
+    loc:"Laweyan, Surakarta", emoji:"👑", topClass:"card-top-2",
+    spp:1050000, pangkal:10500000, ekskul:175000,
+    rating:4.9, votes:247, badge:"badge-top", badgeText:"Top Sekolah",
+    facilities:["Lab Kimia & Fisika","Lab Komputer","Kapel","Aula Serbaguna","Lapangan Multi","Kantin"],
+    desc:"SMA Katolik terbaik di Surakarta dengan rekam jejak gemilang dalam bidang akademik dan non-akademik. Tingkat kelulusan PTN mencapai 88% dalam tiga tahun terakhir.",
+    prestasi:["OSN Kimia Nasional 2023","English Speech Competition Jateng Juara 1 2024","Akreditasi A+"],
+  },
+  // ─── SOLO — Tambahan ────────────────────────────────────
+  {
+    id:9, name:"SMP Bintang Laut Surakarta", level:"SMP", tags:["verified","kristen","solo"],
+    loc:"Pasarkliwon, Surakarta", emoji:"🌊", topClass:"card-top-3",
+    spp:850000, pangkal:8500000, ekskul:140000,
+    rating:4.7, votes:189, badge:"badge-verified", badgeText:"Terverifikasi",
+    facilities:["Lab IPA","Lab Komputer","Kapel","Perpustakaan","Lapangan Olahraga"],
+    desc:"SMP Katolik dengan tradisi panjang di Solo. Fokus pada pembentukan karakter, kedisiplinan, dan prestasi akademik yang konsisten.",
+    prestasi:["OSN Matematika Kota 2024","Juara Olimpiade IPA Tingkat Kota 2023","Akreditasi A"],
+  },
+  {
+    id:10, name:"SD Pangudi Luhur 1 Surakarta", level:"SD", tags:["verified","kristen","solo"],
+    loc:"Serengan, Surakarta", emoji:"🌿", topClass:"card-top-4",
+    spp:700000, pangkal:7000000, ekskul:120000,
+    rating:4.8, votes:234, badge:"badge-verified", badgeText:"Terverifikasi",
+    facilities:["Perpustakaan","Lab Komputer","Kapel","Taman Bermain","Ruang Seni"],
+    desc:"SD Katolik terpercaya di Solo dengan pendekatan pendidikan menyeluruh dan nilai-nilai humanis. Dikenal dengan pembinaan budi pekerti yang kuat.",
+    prestasi:["Juara Lomba Sains SD Kota 2024","FLS2N Tingkat Kota Bidang Menggambar","Akreditasi A"],
+  },
+  {
+    id:11, name:"SD Pangudi Luhur 2 Surakarta", level:"SD", tags:["verified","kristen","solo"],
+    loc:"Banjarsari, Surakarta", emoji:"🌱", topClass:"card-top-5",
+    spp:680000, pangkal:6800000, ekskul:110000,
+    rating:4.7, votes:198, badge:"badge-verified", badgeText:"Terverifikasi",
+    facilities:["Perpustakaan","Lab Komputer","Kapel","Lapangan Olahraga","Ruang Musik"],
+    desc:"Cabang kedua SD Pangudi Luhur yang melayani area Banjarsari. Kurikulum bermutu dengan suasana belajar yang nyaman dan penuh kasih.",
+    prestasi:["Juara Cerdas Cermat Tingkat Kota 2023","Akreditasi A","Lomba Paduan Suara Provinsi"],
+  },
+  {
+    id:12, name:"Kalam Kudus Surakarta", level:"SD/SMP/SMA", tags:["verified","kristen","bilingual","solo"],
+    loc:"Laweyan, Surakarta", emoji:"📖", topClass:"card-top-6",
+    spp:1300000, pangkal:13000000, ekskul:200000,
+    rating:4.8, votes:312, badge:"badge-top", badgeText:"Top Sekolah",
+    facilities:["Lab Komputer","Lab IPA","Aula","Kapel","Lapangan Multi","Kantin Sehat","Studio Seni"],
+    desc:"Sekolah Kristen terpadu dari SD hingga SMA dengan standar akademik tinggi dan nilai iman yang kuat. Program bilingual mendukung kesiapan global siswa.",
+    prestasi:["OSN Provinsi 2024","English Olympiad Jateng Juara 2024","Akreditasi A+"],
+  },
+  {
+    id:13, name:"SMA Santo Yosef Surakarta", level:"SMA", tags:["verified","kristen","solo"],
+    loc:"Banjarsari, Surakarta", emoji:"✨", topClass:"card-top-1",
+    spp:950000, pangkal:9500000, ekskul:160000,
+    rating:4.7, votes:167, badge:"badge-verified", badgeText:"Terverifikasi",
+    facilities:["Lab Kimia & Fisika","Lab Komputer","Kapel","Aula","Lapangan Basket"],
+    desc:"SMA Katolik yang mengutamakan keseimbangan akademik, iman, dan karakter. Lulusan berprestasi di berbagai PTN ternama Indonesia.",
+    prestasi:["Akreditasi A","Juara Debat Bahasa Inggris Jateng 2023","OSN IPA Tingkat Provinsi"],
+  },
+  {
+    id:14, name:"Pradipta Dirgantara Solo", level:"SD/SMP/SMA", tags:["verified","bilingual","solo"],
+    loc:"Colomadu, Surakarta", emoji:"✈️", topClass:"card-top-2",
+    spp:1500000, pangkal:15000000, ekskul:250000,
+    rating:4.8, votes:143, badge:"badge-top", badgeText:"Top Sekolah",
+    facilities:["Lab Komputer","Lab Sains","Kolam Renang","Lapangan Multi","Perpustakaan Digital","Kantin Modern"],
+    desc:"Sekolah unggulan berbasis sains & teknologi di area Colomadu. Dikenal dengan program STEM intensif dan fasilitas modern berkelas.",
+    prestasi:["Juara Robotik Nasional 2024","Olimpiade Sains Provinsi 2023","Akreditasi A"],
+  },
+  // ─── BANDUNG ────────────────────────────────────────────
+  {
+    id:15, name:"SD Santa Angela Bandung", level:"SD", tags:["verified","kristen","bilingual","bandung"],
+    loc:"Bandung Wetan, Bandung", emoji:"🌸", topClass:"card-top-3",
+    spp:1400000, pangkal:14000000, ekskul:220000,
+    rating:4.9, votes:289, badge:"badge-top", badgeText:"Top Sekolah",
+    facilities:["Lab Komputer","Kapel","Taman Bermain","Perpustakaan Digital","Studio Seni"],
+    desc:"SD Katolik bergengsi di Bandung dengan reputasi akademik sangat tinggi. Program bilingual dan pembinaan karakter berbasis nilai Kristiani.",
+    prestasi:["Olimpiade Matematika Nasional 2024","Juara Sains Tingkat Kota Bandung","Akreditasi A+"],
+  },
+  {
+    id:16, name:"SMP Santa Angela Bandung", level:"SMP", tags:["verified","kristen","bilingual","bandung"],
+    loc:"Bandung Wetan, Bandung", emoji:"💫", topClass:"card-top-4",
+    spp:1600000, pangkal:16000000, ekskul:250000,
+    rating:4.9, votes:231, badge:"badge-top", badgeText:"Top Sekolah",
+    facilities:["Lab IPA","Lab Komputer","Kapel","Aula","Lapangan Olahraga","Studio Musik"],
+    desc:"SMP Katolik pilihan utama di Bandung. Lingkungan belajar kondusif dengan kurikulum holistik dan program bilingual yang terstruktur.",
+    prestasi:["OSN IPA Provinsi Jabar 2024","English Speech Champion Kota Bandung","Akreditasi A+"],
+  },
+  {
+    id:17, name:"SMA Santa Angela Bandung", level:"SMA", tags:["verified","kristen","bilingual","top","bandung"],
+    loc:"Bandung Wetan, Bandung", emoji:"🌟", topClass:"card-top-5",
+    spp:1800000, pangkal:18000000, ekskul:280000,
+    rating:4.9, votes:312, badge:"badge-top", badgeText:"Top Sekolah",
+    facilities:["Lab Kimia & Fisika","Lab Komputer","Kapel","Aula Besar","Lapangan Multi","Kantin"],
+    desc:"SMA Katolik terbaik di Bandung. Tingkat kelulusan PTN unggulan mencapai 90%+ setiap tahun. Dikenal dengan alumni berprestasi nasional.",
+    prestasi:["OSN Kimia Nasional 2023","UN Terbaik Kota Bandung 2024","Akreditasi A+"],
+  },
+  {
+    id:18, name:"SMP Trinitas Bandung", level:"SMP", tags:["verified","kristen","bandung"],
+    loc:"Cidadap, Bandung", emoji:"🔱", topClass:"card-top-6",
+    spp:1200000, pangkal:12000000, ekskul:190000,
+    rating:4.7, votes:178, badge:"badge-verified", badgeText:"Terverifikasi",
+    facilities:["Lab Sains","Lab Komputer","Kapel","Perpustakaan","Lapangan Basket"],
+    desc:"SMP Kristen dengan pendekatan pendidikan berbasis nilai iman dan intelektual. Dikenal dengan lingkungan sekolah yang aman dan kondusif.",
+    prestasi:["Juara Olimpiade IPA Kota Bandung 2023","FLS2N Tingkat Kota","Akreditasi A"],
+  },
+  {
+    id:19, name:"SMA Trinitas Bandung", level:"SMA", tags:["verified","kristen","bandung"],
+    loc:"Cidadap, Bandung", emoji:"🏅", topClass:"card-top-1",
+    spp:1400000, pangkal:14000000, ekskul:220000,
+    rating:4.8, votes:203, badge:"badge-verified", badgeText:"Terverifikasi",
+    facilities:["Lab Kimia & Fisika","Lab Komputer","Kapel","Aula","Lapangan Multi","Kantin"],
+    desc:"SMA Kristen favorit di Bandung Utara. Program akademik intensif dengan bimbingan belajar terpadu menuju PTN terbaik.",
+    prestasi:["OSN Provinsi Jabar 2024","Juara Debat Nasional 2023","Akreditasi A"],
+  },
+  {
+    id:20, name:"BPK Penabur Bandung", level:"SD/SMP/SMA", tags:["verified","kristen","bilingual","top","bandung"],
+    loc:"Cicendo, Bandung", emoji:"🏫", topClass:"card-top-2",
+    spp:1700000, pangkal:17000000, ekskul:260000,
+    rating:4.9, votes:567, badge:"badge-top", badgeText:"Top Sekolah",
+    facilities:["Lab Lengkap","Perpustakaan Digital","Kapel","Kolam Renang","Lapangan Multi","Studio Seni","Kantin Modern"],
+    desc:"BPK Penabur Bandung adalah sekolah Kristen terkemuka dengan jaringan nasional dan standar pendidikan internasional. Dikenal dengan program akademik unggul dan ekskul komprehensif.",
+    prestasi:["QS Ranking Best Private School Indonesia","OSN Nasional Multiple 2024","English Olympiad Champion 2023","Akreditasi A+"],
+  },
+  {
+    id:21, name:"Kalam Kudus Bandung", level:"SD/SMP/SMA", tags:["verified","kristen","bilingual","bandung"],
+    loc:"Sumur Bandung, Bandung", emoji:"📗", topClass:"card-top-3",
+    spp:1500000, pangkal:15000000, ekskul:240000,
+    rating:4.8, votes:298, badge:"badge-verified", badgeText:"Terverifikasi",
+    facilities:["Lab Komputer","Lab IPA","Aula","Kapel","Lapangan Basket","Ruang Musik","Kantin"],
+    desc:"Sekolah Kristen terpadu Kalam Kudus di Bandung dengan visi pendidikan berbasis Alkitab dan prestasi akademik tinggi. Salah satu pilihan utama keluarga Kristiani di Bandung.",
+    prestasi:["Olimpiade Sains Kota Bandung 2024","FLS2N Provinsi Jabar 2023","Akreditasi A"],
+  },
+  // ─── SEMARANG ───────────────────────────────────────────
+  {
+    id:22, name:"Kolese Loyola Semarang", level:"SMA", tags:["verified","kristen","bilingual","top","semarang"],
+    loc:"Semarang Barat, Semarang", emoji:"🦁", topClass:"card-top-4",
+    spp:2000000, pangkal:20000000, ekskul:300000,
+    rating:4.9, votes:421, badge:"badge-top", badgeText:"Top Sekolah",
+    facilities:["Lab Kimia & Fisika Lengkap","Lab Komputer","Kapel","Aula Besar","Kolam Renang","Lapangan Multi","Kantin Sehat"],
+    desc:"SMA Jesuit bergengsi di Semarang, termasuk sekolah terbaik di Jawa Tengah. Kurikulum berbasis cura personalis membentuk pemimpin berkarakter kuat dan intelektual tinggi.",
+    prestasi:["OSN Nasional Kimia & Fisika 2024","Akreditasi A+","Lulusan 95% masuk PTN Top 10","English Debate Champion Jateng 2024"],
+  },
+  {
+    id:23, name:"Terang Bangsa Semarang", level:"SD/SMP/SMA", tags:["verified","kristen","bilingual","semarang"],
+    loc:"Pedurungan, Semarang", emoji:"💡", topClass:"card-top-5",
+    spp:1600000, pangkal:16000000, ekskul:250000,
+    rating:4.8, votes:334, badge:"badge-verified", badgeText:"Terverifikasi",
+    facilities:["Lab Komputer","Lab IPA","Kapel","Perpustakaan Digital","Aula","Lapangan Multi","Kantin"],
+    desc:"Sekolah Kristen terpadu dari SD hingga SMA dengan program bilingual terstruktur. Berorientasi pada pembentukan karakter global dan akademik unggul.",
+    prestasi:["Olimpiade Sains Jateng 2024","English Olympiad Champion Kota Semarang","Akreditasi A"],
+  },
+  {
+    id:24, name:"YSKI Semarang", level:"SD/SMP/SMA", tags:["verified","kristen","semarang"],
+    loc:"Semarang Tengah, Semarang", emoji:"🏛️", topClass:"card-top-6",
+    spp:1200000, pangkal:12000000, ekskul:180000,
+    rating:4.7, votes:267, badge:"badge-verified", badgeText:"Terverifikasi",
+    facilities:["Lab Sains","Lab Komputer","Kapel","Perpustakaan","Lapangan Olahraga","Ruang Seni"],
+    desc:"Yayasan Sekolah Kristen Indonesia (YSKI) Semarang dengan track record panjang dalam pendidikan Kristen berkualitas di Jawa Tengah.",
+    prestasi:["Akreditasi A","Juara FLS2N Kota Semarang 2024","Olimpiade Matematika Tingkat Provinsi 2023"],
+  },
+  {
+    id:25, name:"Binus School Semarang", level:"SMP/SMA", tags:["verified","bilingual","top","semarang"],
+    loc:"Banyumanik, Semarang", emoji:"🖥️", topClass:"card-top-1",
+    spp:2500000, pangkal:25000000, ekskul:400000,
+    rating:4.9, votes:198, badge:"badge-top", badgeText:"Top Sekolah",
+    facilities:["Lab Komputer & AI","Lab Sains Modern","Aula","Lapangan Multi","Perpustakaan Digital","Co-Working Space","Kantin Modern"],
+    desc:"Binus School Semarang menghadirkan pendidikan bertaraf internasional dengan kurikulum inovatif berbasis teknologi. Program dual-track mempersiapkan siswa untuk universitas lokal maupun luar negeri.",
+    prestasi:["IB Diploma Programme Terakreditasi","Akreditasi A+","Scholarship ke Universitas Top 2024","Best STEM School Jateng 2024"],
+  },
+  // ─── SRAGEN ─────────────────────────────────────────────
+  {
+    id:26, name:"RUSHD Sragen", level:"SD/SMP/SMA", tags:["islam","verified","sragen"],
+    loc:"Sragen Kota, Sragen", emoji:"📜", topClass:"card-top-2",
+    spp:750000, pangkal:7500000, ekskul:130000,
+    rating:4.7, votes:156, badge:"badge-verified", badgeText:"Terverifikasi",
+    facilities:["Masjid","Lab Komputer","Perpustakaan","Lapangan Olahraga","Asrama Putra/Putri"],
+    desc:"Sekolah Islam terpadu RUSHD Sragen dengan kurikulum Qurani dan akademik seimbang. Pilihan unggulan untuk keluarga yang ingin pendidikan Islam berkualitas di Sragen.",
+    prestasi:["Hafidz Quran Terbaik Kabupaten Sragen 2024","Juara MTQ Tingkat Kabupaten","Akreditasi A"],
+  },
+];
+
+// ─── UNIVERSITY DATA ────────────────────────────────────
+const universities = [
+  {
+    id:0, name:"BINUS University @Semarang", level:"S1", tags:["teknologi","bisnis","verified","top"],
+    loc:"Semarang, Jawa Tengah", emoji:"🖥️", topClass:"card-top-1",
+    ukt:8500000, pangkal:15000000,
+    rating:4.8, votes:512, badge:"badge-top", badgeText:"Top Kampus",
+    facilities:["Lab Komputer & AI","Perpustakaan Digital","Student Lounge","Startup Hub","Ruang Konferensi","Kantin Modern"],
+    desc:"BINUS University kampus Semarang menghadirkan pendidikan berkelas dunia di bidang teknologi, bisnis, dan komunikasi. Kurikulum berbasis industri dengan jaringan mitra perusahaan nasional dan internasional yang luas.",
+    prestasi:["QS Asia University Rankings Top 500","Akreditasi BAN-PT Unggul","Lulusan Terserap Industri 92% dalam 6 Bulan","Best Private University Jawa Tengah 2024"],
+    prodi:["Teknik Informatika","Sistem Informasi","Manajemen","Komunikasi Pemasaran","Desain Komunikasi Visual","Akuntansi"],
+  },
+  {
+    id:1, name:"Universitas Diponegoro (UNDIP)", level:"S1/S2/S3", tags:["negeri","verified","top"],
+    loc:"Semarang, Jawa Tengah", emoji:"🎓", topClass:"card-top-3",
+    ukt:6000000, pangkal:0,
+    rating:4.9, votes:1240, badge:"badge-top", badgeText:"Top Kampus",
+    facilities:["Perpustakaan Pusat","Laboratorium Terpadu","Rumah Sakit Pendidikan","GOR Undip","Asrama Mahasiswa"],
+    desc:"Universitas Diponegoro adalah salah satu universitas negeri terkemuka di Indonesia dengan reputasi akademik yang sangat kuat, khususnya dalam bidang teknik, hukum, dan kedokteran.",
+    prestasi:["Top 10 Universitas Terbaik Indonesia 2024","QS World University Rankings 801-1000","Akreditasi Unggul BAN-PT","Publikasi Internasional Terindeks Scopus Terbanyak Jawa Tengah"],
+    prodi:["Kedokteran","Teknik Sipil","Hukum","Ekonomi","Ilmu Kelautan","Psikologi"],
+  },
+  {
+    id:2, name:"Universitas Katolik Soegijapranata", level:"S1/S2", tags:["kristen","verified","bisnis"],
+    loc:"Semarang, Jawa Tengah", emoji:"⛪", topClass:"card-top-5",
+    ukt:6500000, pangkal:5000000,
+    rating:4.7, votes:389, badge:"badge-verified", badgeText:"Terverifikasi",
+    facilities:["Perpustakaan","Lab Bahasa","Studio Broadcast","Co-Working Space","Kapel","Kantin"],
+    desc:"Universitas Katolik Soegijapranata Semarang mengedepankan nilai-nilai humanis dan religius dalam proses pendidikan. Unggul di bidang arsitektur, komunikasi, dan teknologi pangan.",
+    prestasi:["Akreditasi Institusi Unggul BAN-PT","Juara PKM Nasional 2023","Best Architecture School Jateng 2024","Program Magang Internasional Aktif"],
+    prodi:["Arsitektur","Teknologi Pangan","Ilmu Komunikasi","Manajemen","Psikologi","Teknik Informatika"],
+  },
+  {
+    id:3, name:"Universitas Sebelas Maret (UNS)", level:"S1/S2/S3", tags:["negeri","verified","top"],
+    loc:"Surakarta, Jawa Tengah", emoji:"🏛️", topClass:"card-top-4",
+    ukt:5500000, pangkal:0,
+    rating:4.8, votes:987, badge:"badge-top", badgeText:"Top Kampus",
+    facilities:["Perpustakaan Pusat","RSIS UNS","Lab Lengkap","GOR","Asrama","Business Center"],
+    desc:"Universitas Sebelas Maret adalah universitas negeri terkemuka di Surakarta yang dikenal dengan program studi unggul di bidang seni, pendidikan, pertanian, dan kedokteran.",
+    prestasi:["Top 15 Universitas Terbaik Indonesia 2024","Akreditasi Unggul BAN-PT","World Class University Program","Entrepreneurship Campus of the Year 2023"],
+    prodi:["Kedokteran","Teknik","Hukum","Seni Rupa","FKIP","Pertanian"],
+  },
+];
+
+let compareList = [];
+let activeLevel = 'all';
+let currentFilter = 'all';
+let quizStep = 0;
+let quizAnswers = [];
+
+// ─── CURSOR ──────────────────────────────────────────────
+const cur = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX; my=e.clientY;
+  cur.style.left=mx+'px'; cur.style.top=my+'px';
+});
+setInterval(()=>{
+  rx+=(mx-rx)*0.12; ry+=(my-ry)*0.12;
+  ring.style.left=rx+'px'; ring.style.top=ry+'px';
+},16);
+document.querySelectorAll('button,a,.school-card,.q-opt,.hint-tag,.sf-tag').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='20px';cur.style.height='20px';ring.style.width='50px';ring.style.height='50px'});
+  el.addEventListener('mouseleave',()=>{cur.style.width='12px';cur.style.height='12px';ring.style.width='36px';ring.style.height='36px'});
+});
+
+// ─── NAVBAR SCROLL ───────────────────────────────────────
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('scrolled',scrollY>80);
+});
+
+// ─── ANIMATED COUNTERS ───────────────────────────────────
+function animateCounter(id,target,suffix='',duration=2000){
+  const el=document.getElementById(id);
+  let start=0,step=target/80;
+  const timer=setInterval(()=>{
+    start+=step;
+    if(start>=target){start=target;clearInterval(timer);}
+    el.innerHTML=Math.floor(start)+'<span>'+suffix+'</span>';
+  },duration/80);
+}
+setTimeout(()=>{
+  animateCounter('statSchools',2847,'+');
+  animateCounter('statCities',34,'+');
+  animateCounter('statFam',18,'K');
+},800);
+
+// ─── TICKER ──────────────────────────────────────────────
+const tickerData = [
+  '🏫 SDIT Al-Abidin — SPP Rp800K/bln',
+  '📍 Baru: 12 sekolah baru di Semarang',
+  '⭐ SMA Muhammadiyah 1 — Rating 4.8',
+  '💡 Tip: Bandingkan 2 sekolah sekaligus',
+  '🎓 Musim pendaftaran SD: Feb–Apr 2025',
+  '✅ Data diverifikasi langsung ke lapangan',
+  '🤖 AI Rekomendasi — coba sekarang gratis',
+  '🌹 SMP & SMA Regina Pacis Surakarta — Akreditasi A+',
+  '🕊️ Pelita Nusantara Kasih — Pendidikan Holistik SD–SMA',
+  '🖥️ BINUS University @Semarang — Top Kampus IT',
+];
+const inner = document.getElementById('tickerInner');
+[...tickerData,...tickerData].forEach(t=>{
+  inner.innerHTML+=`<span class="ticker-item">${t}<span class="ticker-sep">◆</span></span>`;
+});
+
+// ─── RENDER SCHOOLS ──────────────────────────────────────
+function fmt(n){return'Rp '+n.toLocaleString('id-ID')}
+
+function renderSchools(list){
+  const grid=document.getElementById('schoolGrid');
+  document.getElementById('resultCount').textContent=list.length;
+  if(!list.length){
+    grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:4rem 2rem;color:var(--muted)"><div style="font-size:3rem;margin-bottom:1rem">🔍</div><div style="font-size:1.1rem;font-weight:600;margin-bottom:0.5rem">Tidak ada sekolah ditemukan</div><div style="font-size:0.88rem">Coba ubah filter atau kata kunci pencarian</div></div>';
+    return;
+  }
+  grid.innerHTML=list.map(s=>`
+    <div class="school-card ${compareList.includes(s.id)?'compare-selected':''}" id="sc-${s.id}" data-level="${s.level}" data-tags="${s.tags.join(',')}">
+      <div class="card-top ${s.topClass}">
+        <span>${s.emoji}</span>
+        <span class="card-badge ${s.badge}">${s.badgeText}</span>
+        <div class="compare-check" onclick="toggleCompare(${s.id},event)">${compareList.includes(s.id)?'✓':''}</div>
+      </div>
+      <div class="card-body">
+        <div class="school-level">${s.level}</div>
+        <div class="school-name">${s.name}</div>
+        <div class="school-loc">${s.loc}</div>
+        <div class="cost-row"><span class="cost-label">SPP/bulan</span><span class="cost-val">${fmt(s.spp)}</span></div>
+        <div class="cost-row"><span class="cost-label">Uang Pangkal</span><span class="cost-val">${fmt(s.pangkal)}</span></div>
+        <div class="cost-row"><span class="cost-label">Ekskul/bulan</span><span class="cost-val">${fmt(s.ekskul)}</span></div>
+        <div class="card-meta">
+          <div class="star-row"><span class="stars">★</span>${s.rating} <span style="color:var(--light);font-weight:400">(${s.votes})</span></div>
+          <div class="meta-tags">${s.tags.filter(t=>t!=='verified').map(t=>`<span class="mtag">${t}</span>`).join('')}</div>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn-detail" onclick="openDetail(${s.id})">Lihat Detail</button>
+        <button class="btn-compare" onclick="toggleCompare(${s.id},event)">${compareList.includes(s.id)?'✓ Dipilih':'+ Bandingkan'}</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ─── FILTER & SEARCH ─────────────────────────────────────
+function filterCards(type,btn){
+  document.querySelectorAll('#filterRow .filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  currentFilter=type;
+  applyFilter();
+}
+
+function applyFilter(){
+  let list=schools;
+  const q=document.getElementById('searchInput').value.toLowerCase().trim();
+  if(q) list=list.filter(s=>s.name.toLowerCase().includes(q)||s.loc.toLowerCase().includes(q)||s.level.toLowerCase().includes(q));
+  if(activeLevel!=='all') list=list.filter(s=>s.level===activeLevel);
+  if(currentFilter==='budget') list=list.filter(s=>s.spp<700000);
+  else if(currentFilter!=='all') list=list.filter(s=>s.tags.includes(currentFilter));
+  renderSchools(list);
+}
+
+function handleSearch(v){applyFilter();}
+
+function setLevel(lv,el){
+  document.querySelectorAll('.sf-tag').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  if(lv==='Univ'){
+    document.getElementById('universities').scrollIntoView({behavior:'smooth'});
+    return;
+  }
+  activeLevel=lv;
+  applyFilter();
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+}
+
+function quickSearch(q){
+  document.getElementById('searchInput').value=q;
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+  applyFilter();
+  showToast('Mencari: "'+q+'"');
+}
+
+function triggerSearch(){
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+  applyFilter();
+}
+
+// ─── COMPARE ─────────────────────────────────────────────
+function toggleCompare(id,e){
+  if(e) e.stopPropagation();
+  if(compareList.includes(id)){
+    compareList=compareList.filter(x=>x!==id);
+  } else {
+    if(compareList.length>=2){showToast('Maksimal 2 sekolah untuk dibandingkan');return;}
+    compareList.push(id);
+    showToast('Sekolah ditambahkan ke perbandingan ✓');
+  }
+  updateCompareBar();
+  applyFilter();
+}
+
+function updateCompareBar(){
+  const bar=document.getElementById('compareBar');
+  const s0=document.getElementById('slot0');
+  const s1=document.getElementById('slot1');
+  const cta=document.getElementById('compareCta');
+  bar.classList.toggle('visible',compareList.length>0);
+  if(compareList.length===0){
+    s0.className='compare-slot'; s0.innerHTML='Pilih sekolah untuk dibandingkan...';
+    s1.className='compare-slot'; s1.innerHTML='+ Tambah sekolah kedua';
+  } else if(compareList.length===1){
+    const sc=schools.find(s=>s.id===compareList[0]);
+    s0.className='compare-slot filled'; s0.innerHTML=`<span class="slot-name">${sc.name}</span><span class="slot-remove" onclick="toggleCompare(${sc.id})">✕</span>`;
+    s1.className='compare-slot'; s1.innerHTML='+ Tambah sekolah kedua';
+  } else {
+    const s=[schools.find(s=>s.id===compareList[0]),schools.find(s=>s.id===compareList[1])];
+    s0.className='compare-slot filled'; s0.innerHTML=`<span class="slot-name">${s[0].name}</span><span class="slot-remove" onclick="toggleCompare(${s[0].id})">✕</span>`;
+    s1.className='compare-slot filled'; s1.innerHTML=`<span class="slot-name">${s[1].name}</span><span class="slot-remove" onclick="toggleCompare(${s[1].id})">✕</span>`;
+  }
+  cta.disabled=compareList.length<2;
+}
+
+function clearCompare(){compareList=[];updateCompareBar();applyFilter();}
+
+function openCompare(){
+  if(compareList.length<2) return;
+  const [a,b]=compareList.map(id=>schools.find(s=>s.id===id));
+  const cheaperSpp=a.spp<b.spp?'a':'b';
+  const cheaperPangkal=a.pangkal<b.pangkal?'a':'b';
+  const higherRating=a.rating>b.rating?'a':'b';
+  const totalA=a.spp+a.ekskul;
+  const totalB=b.spp+b.ekskul;
+  document.getElementById('compareTableWrap').innerHTML=`
+    <div style="overflow-x:auto">
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Kriteria</th>
+          <th>${a.name}</th>
+          <th>${b.name}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Jenjang</td><td>${a.level}</td><td>${b.level}</td></tr>
+        <tr><td>Lokasi</td><td>${a.loc}</td><td>${b.loc}</td></tr>
+        <tr>
+          <td>SPP / Bulan</td>
+          <td class="${cheaperSpp==='a'?'winner':'loser'}">${fmt(a.spp)}${cheaperSpp==='a'?' ✓':''}</td>
+          <td class="${cheaperSpp==='b'?'winner':'loser'}">${fmt(b.spp)}${cheaperSpp==='b'?' ✓':''}</td>
+        </tr>
+        <tr>
+          <td>Uang Pangkal</td>
+          <td class="${cheaperPangkal==='a'?'winner':'loser'}">${fmt(a.pangkal)}${cheaperPangkal==='a'?' ✓':''}</td>
+          <td class="${cheaperPangkal==='b'?'winner':'loser'}">${fmt(b.pangkal)}${cheaperPangkal==='b'?' ✓':''}</td>
+        </tr>
+        <tr>
+          <td>Ekskul / Bulan</td>
+          <td>${fmt(a.ekskul)}</td>
+          <td>${fmt(b.ekskul)}</td>
+        </tr>
+        <tr>
+          <td>Total/Bulan (est.)</td>
+          <td class="${totalA<totalB?'winner':'loser'}">${fmt(totalA)}${totalA<totalB?' ✓':''}</td>
+          <td class="${totalB<totalA?'winner':'loser'}">${fmt(totalB)}${totalB<totalA?' ✓':''}</td>
+        </tr>
+        <tr>
+          <td>Rating Pengguna</td>
+          <td class="${higherRating==='a'?'winner':'loser'}">★ ${a.rating} (${a.votes} ulasan)${higherRating==='a'?' ✓':''}</td>
+          <td class="${higherRating==='b'?'winner':'loser'}">★ ${b.rating} (${b.votes} ulasan)${higherRating==='b'?' ✓':''}</td>
+        </tr>
+        <tr>
+          <td>Kategori</td>
+          <td>${a.tags.map(t=>`<span class="tag-${t==='top'?'amber':t==='islam'?'green':'blue'}">${t}</span>`).join(' ')}</td>
+          <td>${b.tags.map(t=>`<span class="tag-${t==='top'?'amber':t==='islam'?'green':'blue'}">${t}</span>`).join(' ')}</td>
+        </tr>
+        <tr>
+          <td>Fasilitas</td>
+          <td style="text-align:left;font-size:0.78rem">${a.facilities.join(', ')}</td>
+          <td style="text-align:left;font-size:0.78rem">${b.facilities.join(', ')}</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <div style="margin-top:1.5rem;background:#fafafa;border-radius:12px;padding:1.25rem;border:1px solid var(--border)">
+      <div style="font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:0.5rem">💡 Analisis GEdu AI</div>
+      <div style="font-size:0.88rem;color:var(--muted);line-height:1.7">
+        Berdasarkan data yang kami verifikasi, <strong style="color:var(--ink)">${totalA<totalB?a.name:b.name}</strong> menawarkan biaya bulanan lebih hemat 
+        <strong style="color:var(--red)">Rp ${Math.abs(totalA-totalB).toLocaleString('id-ID')}/bulan</strong>. 
+        Namun <strong style="color:var(--ink)">${higherRating==='a'?a.name:b.name}</strong> unggul dari sisi rating pengguna. 
+        Pertimbangkan prioritas keluargamu: apakah biaya atau pengalaman belajar yang lebih utama?
+      </div>
+    </div>`;
+  document.getElementById('compareModal').classList.add('open');
+}
+
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+
+// ─── DETAIL ──────────────────────────────────────────────
+function openDetail(id){
+  const s=schools.find(x=>x.id===id);
+  document.getElementById('detailContent').innerHTML=`
+    <div class="dm-hero ${s.topClass}">
+      <span style="font-size:4rem">${s.emoji}</span>
+      <button class="dm-hero-close" onclick="closeModal('detailModal')">✕</button>
+    </div>
+    <div class="dm-body">
+      <div class="dm-level">${s.level} Swasta</div>
+      <div class="dm-name">${s.name}</div>
+      <div class="dm-loc">📍 ${s.loc}</div>
+      <div style="font-size:0.88rem;color:var(--muted);line-height:1.7;margin-bottom:1.5rem">${s.desc}</div>
+      <div class="dm-stats">
+        <div class="dm-stat"><div class="dm-stat-val">★ ${s.rating}</div><div class="dm-stat-lbl">Rating</div></div>
+        <div class="dm-stat"><div class="dm-stat-val">${s.votes}</div><div class="dm-stat-lbl">Ulasan</div></div>
+        <div class="dm-stat"><div class="dm-stat-val">${s.facilities.length}</div><div class="dm-stat-lbl">Fasilitas</div></div>
+      </div>
+      <div class="dm-section-title">💰 Rincian Biaya (Terverifikasi)</div>
+      <div class="dm-cost-row"><span class="dm-cost-label">SPP per bulan</span><span class="dm-cost-val">${fmt(s.spp)}</span></div>
+      <div class="dm-cost-row"><span class="dm-cost-label">Uang Pangkal (sekali)</span><span class="dm-cost-val">${fmt(s.pangkal)}</span></div>
+      <div class="dm-cost-row"><span class="dm-cost-label">Biaya Ekskul/bulan</span><span class="dm-cost-val">${fmt(s.ekskul)}</span></div>
+      <div class="dm-cost-row" style="background:#f9fafb;border-radius:8px;padding:0.65rem;margin-top:0.5rem">
+        <span class="dm-cost-label" style="font-weight:600;color:var(--ink)">Total estimasi/bulan</span>
+        <span class="dm-cost-val" style="color:var(--red)">${fmt(s.spp+s.ekskul)}</span>
+      </div>
+      <div class="dm-section-title">🏫 Fasilitas</div>
+      <div class="dm-facilities">${s.facilities.map(f=>`<span class="dm-fac">${f}</span>`).join('')}</div>
+      <div class="dm-section-title">🏆 Prestasi</div>
+      <ul style="padding-left:1.25rem;margin-top:0.5rem">${s.prestasi.map(p=>`<li style="font-size:0.85rem;color:var(--muted);margin-bottom:0.35rem">${p}</li>`).join('')}</ul>
+      <button class="dm-enroll-btn" onclick="showToast('Info pendaftaran dikirim ke WA kamu! 📲');closeModal('detailModal')">
+        📩 Dapatkan Info Pendaftaran
+      </button>
+    </div>`;
+  document.getElementById('detailModal').classList.add('open');
+}
+
+// Click outside modals to close
+document.querySelectorAll('.modal-overlay').forEach(overlay=>{
+  overlay.addEventListener('click',e=>{if(e.target===overlay)overlay.classList.remove('open')});
+});
+
+// ─── QUIZ ────────────────────────────────────────────────
+function selectOpt(btn, step){
+  btn.closest('.quiz-options').querySelectorAll('.q-opt').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  quizAnswers[step]=btn.textContent;
+  setTimeout(()=>nextQuizStep(step),350);
+}
+
+function nextQuizStep(current){
+  const steps=['qs0','qs1','qs2','qs3','qs-result'];
+  document.getElementById(steps[current]).classList.remove('active');
+  const next=current+1;
+  if(next<steps.length){
+    document.getElementById(steps[next]).classList.add('active');
+    document.querySelectorAll('.qp-dot').forEach((d,i)=>{
+      d.className='qp-dot'+(i<next?' done':i===next?' active':'');
+    });
+    if(next===steps.length-1) showQuizResult();
+  }
+}
+
+function showQuizResult(){
+  const picks=[
+    {emoji:'🕌',name:'SDIT Al-Abidin',match:'94% cocok'},
+    {emoji:'⭐',name:'SMA Muhammadiyah 1',match:'89% cocok'},
+    {emoji:'📚',name:'SMA Warga Surakarta',match:'82% cocok'},
+  ];
+  document.getElementById('resultCardsMini').innerHTML=picks.map(p=>`
+    <div class="rcm">
+      <div class="rcm-emoji">${p.emoji}</div>
+      <div class="rcm-name">${p.name}</div>
+      <div class="rcm-match">${p.match}</div>
+    </div>`).join('');
+}
+
+function scrollToResults(){
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+  closeModal('compareModal');
+}
+
+// ─── TOAST ───────────────────────────────────────────────
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+// ─── INIT ────────────────────────────────────────────────
+// ─── RENDER UNIVERSITIES ─────────────────────────────────
+function renderUniversities(list){
+  const grid=document.getElementById('univGrid');
+  document.getElementById('univCount').textContent=list.length;
+  if(!list.length){
+    grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:4rem 2rem;color:var(--muted)"><div style="font-size:3rem;margin-bottom:1rem">🔍</div><div style="font-size:1.1rem;font-weight:600;margin-bottom:0.5rem">Tidak ada kampus ditemukan</div><div style="font-size:0.88rem">Coba ubah filter</div></div>';
+    return;
+  }
+  grid.innerHTML=list.map(u=>`
+    <div class="school-card" id="uc-${u.id}" data-tags="${u.tags.join(',')}">
+      <div class="card-top ${u.topClass}">
+        <span>${u.emoji}</span>
+        <span class="card-badge ${u.badge}">${u.badgeText}</span>
+      </div>
+      <div class="card-body">
+        <div class="school-level">${u.level} • Perguruan Tinggi</div>
+        <div class="school-name">${u.name}</div>
+        <div class="school-loc">${u.loc}</div>
+        <div class="cost-row"><span class="cost-label">UKT/semester</span><span class="cost-val">${u.ukt?fmt(u.ukt):'Lihat detail'}</span></div>
+        <div class="cost-row"><span class="cost-label">Uang Pangkal</span><span class="cost-val">${u.pangkal?fmt(u.pangkal):'–'}</span></div>
+        <div class="cost-row"><span class="cost-label">Program Studi</span><span class="cost-val" style="font-size:0.78rem;color:var(--muted)">${u.prodi.slice(0,2).join(', ')} +${u.prodi.length-2} lagi</span></div>
+        <div class="card-meta">
+          <div class="star-row"><span class="stars">★</span>${u.rating} <span style="color:var(--light);font-weight:400">(${u.votes})</span></div>
+          <div class="meta-tags">${u.tags.filter(t=>t!=='verified').slice(0,2).map(t=>`<span class="mtag">${t}</span>`).join('')}</div>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn-detail" onclick="openUnivDetail(${u.id})">Lihat Detail</button>
+        <button class="btn-compare" onclick="showToast('Fitur bandingkan kampus segera hadir! 🚀')">+ Info Lebih</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterUniv(type,btn){
+  document.querySelectorAll('#univFilterRow .filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const filtered=type==='all'?universities:universities.filter(u=>u.tags.includes(type));
+  renderUniversities(filtered);
+}
+
+function openUnivDetail(id){
+  const u=universities.find(x=>x.id===id);
+  document.getElementById('detailContent').innerHTML=`
+    <div class="dm-hero ${u.topClass}">
+      <span style="font-size:4rem">${u.emoji}</span>
+      <button class="dm-hero-close" onclick="closeModal('detailModal')">✕</button>
+    </div>
+    <div class="dm-body">
+      <div class="dm-level">${u.level} • Perguruan Tinggi</div>
+      <div class="dm-name">${u.name}</div>
+      <div class="dm-loc">📍 ${u.loc}</div>
+      <div style="font-size:0.88rem;color:var(--muted);line-height:1.7;margin-bottom:1.5rem">${u.desc}</div>
+      <div class="dm-stats">
+        <div class="dm-stat"><div class="dm-stat-val">★ ${u.rating}</div><div class="dm-stat-lbl">Rating</div></div>
+        <div class="dm-stat"><div class="dm-stat-val">${u.votes}</div><div class="dm-stat-lbl">Ulasan</div></div>
+        <div class="dm-stat"><div class="dm-stat-val">${u.prodi.length}</div><div class="dm-stat-lbl">Prodi</div></div>
+      </div>
+      <div class="dm-section-title">💰 Rincian Biaya (Estimasi)</div>
+      <div class="dm-cost-row"><span class="dm-cost-label">UKT per semester</span><span class="dm-cost-val">${u.ukt?fmt(u.ukt):'Lihat website resmi'}</span></div>
+      <div class="dm-cost-row"><span class="dm-cost-label">Uang Pangkal (sekali)</span><span class="dm-cost-val">${u.pangkal?fmt(u.pangkal):'Tidak ada / Gratis'}</span></div>
+      <div class="dm-section-title">📚 Program Studi Tersedia</div>
+      <div class="dm-facilities">${u.prodi.map(p=>`<span class="dm-fac">${p}</span>`).join('')}</div>
+      <div class="dm-section-title">🏫 Fasilitas</div>
+      <div class="dm-facilities">${u.facilities.map(f=>`<span class="dm-fac">${f}</span>`).join('')}</div>
+      <div class="dm-section-title">🏆 Keunggulan & Prestasi</div>
+      <ul style="padding-left:1.25rem;margin-top:0.5rem">${u.prestasi.map(p=>`<li style="font-size:0.85rem;color:var(--muted);margin-bottom:0.35rem">${p}</li>`).join('')}</ul>
+      <button class="dm-enroll-btn" onclick="showToast('Info pendaftaran kampus dikirim ke WA kamu! 📲');closeModal('detailModal')">
+        📩 Dapatkan Info Pendaftaran
+      </button>
+    </div>`;
+  document.getElementById('detailModal').classList.add('open');
+}
+
+renderSchools(schools);
+renderUniversities(universities);
+
+// Scroll reveal
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.style.opacity='1';
+      e.target.style.transform='translateY(0)';
+    }
+  });
+},{threshold:0.1});
+
+document.querySelectorAll('.school-card,.plan-card,.testi-card,.trust-card').forEach(el=>{
+  el.style.opacity='0';
+  el.style.transform='translateY(20px)';
+  el.style.transition='opacity 0.5s ease, transform 0.5s ease, border-color 0.3s, box-shadow 0.3s';
+  io.observe(el);
+});
+</script>
+</body>
+</html>
