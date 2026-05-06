@@ -95,6 +95,7 @@ nav.scrolled{background:rgba(10,14,26,0.92);backdrop-filter:blur(20px);box-shado
 
 /* ANIMATIONS */
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
 
 /* TICKER */
 .ticker-wrap{background:var(--red);padding:0.6rem 0;overflow:hidden}
@@ -522,7 +523,7 @@ footer p{color:rgba(255,255,255,0.25);font-size:0.8rem}
       <!-- Gema Sprachzentrum -->
       <div class="school-card" style="background:#111827;border-color:rgba(255,255,255,0.08)">
         <div class="card-top" style="background:linear-gradient(135deg,#0a1a3a,#1e3a6e);height:130px;display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative">
-          🌏
+          🇩🇪
           <span class="card-badge badge-top" style="position:absolute;top:10px;left:10px">Unggulan</span>
         </div>
         <div class="card-body">
@@ -549,7 +550,7 @@ footer p{color:rgba(255,255,255,0.25);font-size:0.8rem}
       <!-- Greatwall Education -->
       <div class="school-card" style="background:#111827;border-color:rgba(255,255,255,0.08)">
         <div class="card-top" style="background:linear-gradient(135deg,#1a0a0a,#6e1e1e);height:130px;display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative">
-          🌏
+          🇨🇳
           <span class="card-badge badge-top" style="position:absolute;top:10px;left:10px">Terpercaya</span>
         </div>
         <div class="card-body">
@@ -603,7 +604,7 @@ footer p{color:rgba(255,255,255,0.25);font-size:0.8rem}
       <!-- IDP Education Solo -->
       <div class="school-card" style="background:#111827;border-color:rgba(255,255,255,0.08)">
         <div class="card-top" style="background:linear-gradient(135deg,#0f0a1a,#3d1e5f);height:130px;display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative">
-          🌏
+          🇦🇺
           <span class="card-badge badge-top" style="position:absolute;top:10px;left:10px">Resmi</span>
         </div>
         <div class="card-body">
@@ -630,7 +631,7 @@ footer p{color:rgba(255,255,255,0.25);font-size:0.8rem}
       <!-- StudyAbroad Solo -->
       <div class="school-card" style="background:#111827;border-color:rgba(255,255,255,0.08)">
         <div class="card-top" style="background:linear-gradient(135deg,#0a1a18,#1e4f5f);height:130px;display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative">
-          🌏
+          🇯🇵
           <span class="card-badge badge-new" style="position:absolute;top:10px;left:10px">Baru</span>
         </div>
         <div class="card-body">
@@ -755,7 +756,7 @@ footer p{color:rgba(255,255,255,0.25);font-size:0.8rem}
         <div class="quiz-options">
           <button class="q-opt" onclick="selectOpt(this,3)">Solo / Surakarta</button>
           <button class="q-opt" onclick="selectOpt(this,3)">Semarang</button>
-          <button class="q-opt" onclick="selectOpt(this,3)">Yogyakarta</button>
+          <button class="q-opt" onclick="selectOpt(this,3)">Bandung</button>
           <button class="q-opt" onclick="selectOpt(this,3)">Kota lain di Jawa</button>
         </div>
       </div>
@@ -767,6 +768,7 @@ footer p{color:rgba(255,255,255,0.25);font-size:0.8rem}
           <p>Berdasarkan profil anakmu, kami menemukan <strong style="color:var(--red2)">3 sekolah terbaik</strong> yang cocok:</p>
           <div class="result-cards-mini" id="resultCardsMini"></div>
           <button class="quiz-cta-btn" onclick="scrollToResults()">Lihat Semua Sekolah yang Cocok →</button>
+          <button onclick="resetQuiz()" style="margin-top:12px;background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.15);border-radius:12px;padding:0.75rem 2rem;color:rgba(255,255,255,0.65);font-family:'Instrument Sans',sans-serif;font-weight:600;font-size:0.88rem;cursor:pointer;width:100%;transition:all 0.2s" onmouseover="this.style.background='rgba(255,255,255,0.12)';this.style.color='white'" onmouseout="this.style.background='rgba(255,255,255,0.07)';this.style.color='rgba(255,255,255,0.65)'">🔄 Coba lagi</button>
         </div>
       </div>
     </div>
@@ -799,7 +801,7 @@ footer p{color:rgba(255,255,255,0.25);font-size:0.8rem}
       <div class="plan-card featured">
         <div class="plan-label">⭐ Paling Populer</div>
         <div class="plan-name">Premium</div>
-        <div class="plan-price">Rp 19K <span>/bulan</span></div>
+        <div class="plan-price">Rp 99K <span>/bulan</span></div>
         <div class="plan-desc">Untuk orangtua yang mau keputusan terbaik tanpa stress.</div>
         <div class="plan-divider"></div>
         <ul class="plan-features">
@@ -816,7 +818,7 @@ footer p{color:rgba(255,255,255,0.25);font-size:0.8rem}
       <div class="plan-card">
         <div class="plan-label">Untuk sekolah & institusi</div>
         <div class="plan-name">Sekolah B2B</div>
-        <div class="plan-price">Rp 499K <span>/tahun</span></div>
+        <div class="plan-price">Rp 500K <span>/bulan</span></div>
         <div class="plan-desc">Tingkatkan enrollment dengan lead dari orangtua yang sudah siap mendaftar.</div>
         <div class="plan-divider"></div>
         <ul class="plan-features">
@@ -845,7 +847,7 @@ footer p{color:rgba(255,255,255,0.25);font-size:0.8rem}
         <div class="testi-author">
           <div class="testi-avatar av1">👩</div>
           <div>
-            <div class="testi-name">Bapak Benyamin S. K.</div>
+            <div class="testi-name">Ibu Sari W.</div>
             <div class="testi-role">Orangtua siswa SMP — Solo</div>
           </div>
         </div>
@@ -856,7 +858,7 @@ footer p{color:rgba(255,255,255,0.25);font-size:0.8rem}
         <div class="testi-author">
           <div class="testi-avatar av2">👨</div>
           <div>
-            <div class="testi-name">Bapak Dicky S.</div>
+            <div class="testi-name">Bapak Reza A.</div>
             <div class="testi-role">Orangtua siswa SMA — Semarang</div>
           </div>
         </div>
@@ -867,7 +869,7 @@ footer p{color:rgba(255,255,255,0.25);font-size:0.8rem}
         <div class="testi-author">
           <div class="testi-avatar av3">👩</div>
           <div>
-            <div class="testi-name">Bapak Upik H.</div>
+            <div class="testi-name">Ibu Dewi P.</div>
             <div class="testi-role">Orangtua siswa SD — Yogyakarta</div>
           </div>
         </div>
@@ -917,7 +919,9 @@ const schools = [
   {
     id:0, name:"SDIT Al-Abidin", level:"SD", tags:["islam","verified","solo"],
     loc:"Banjarsari, Surakarta", emoji:"🕌", topClass:"card-top-1",
-    spp:800000, pangkal:8000000, ekskul:150000,
+    spp:800000, pangkal:8000000,
+    fees:{uniform:1200000,activity:100000,extracurricular:150000,registration:500000},
+    mapsUrl:"https://maps.app.goo.gl/jQ2vqCp4qMoRMKRG6",
     rating:4.9, votes:312, badge:"badge-verified", badgeText:"Terverifikasi",
     facilities:["Lab Komputer","Masjid","Perpustakaan","Kolam Renang","Lapangan Futsal"],
     desc:"Sekolah Islam terpadu unggulan di Solo dengan kurikulum Al-Quran terintegrasi. Lulusan 90%+ masuk SMP favorit.",
@@ -926,7 +930,9 @@ const schools = [
   {
     id:1, name:"SMP Batik 1 Surakarta", level:"SMP", tags:["verified","top","solo"],
     loc:"Laweyan, Surakarta", emoji:"🎓", topClass:"card-top-2",
-    spp:600000, pangkal:5000000, ekskul:100000,
+    spp:600000, pangkal:5000000,
+    fees:{uniform:900000,activity:80000,extracurricular:100000,registration:350000},
+    mapsUrl:"https://www.google.com/maps/search/?api=1&query=SMP+Batik+1+Surakarta+Laweyan",
     rating:4.7, votes:284, badge:"badge-top", badgeText:"Top Sekolah",
     facilities:["Lab Sains","Aula","Lapangan Basket","Perpustakaan Digital","Studio Musik"],
     desc:"SMP swasta senior di Laweyan dengan rekam jejak akademik solid. Pilihan utama keluarga pekerja menengah Solo.",
@@ -935,7 +941,9 @@ const schools = [
   {
     id:2, name:"SMA Warga Surakarta", level:"SMA", tags:["verified","bilingual","solo"],
     loc:"Jebres, Surakarta", emoji:"📚", topClass:"card-top-3",
-    spp:1200000, pangkal:12000000, ekskul:200000,
+    spp:1200000, pangkal:12000000,
+    fees:{uniform:1500000,activity:150000,extracurricular:200000,building:2000000,registration:600000},
+    mapsUrl:"https://www.google.com/maps/search/?api=1&query=SMA+Warga+Surakarta+Jebres",
     rating:4.8, votes:198, badge:"badge-verified", badgeText:"Terverifikasi",
     facilities:["Lab Kimia & Fisika","Lapangan Olahraga","Aula","Perpustakaan","Ruang Seni"],
     desc:"SMA swasta terkemuka dengan program bilingual English. Tingkat kelulusan PTN 85% dalam 3 tahun terakhir.",
@@ -944,7 +952,9 @@ const schools = [
   {
     id:3, name:"SD Islam Terpadu Nur Hidayah", level:"SD", tags:["islam","budget","solo"],
     loc:"Pajang, Surakarta", emoji:"🌙", topClass:"card-top-4",
-    spp:450000, pangkal:4500000, ekskul:75000,
+    spp:450000, pangkal:4500000,
+    fees:{uniform:700000,activity:50000,extracurricular:75000,registration:250000},
+    mapsUrl:"https://www.google.com/maps/search/?api=1&query=SD+Islam+Terpadu+Nur+Hidayah+Surakarta",
     rating:4.6, votes:267, badge:"badge-verified", badgeText:"Terverifikasi",
     facilities:["Mushola","Lab Komputer","Perpustakaan","Taman Bermain"],
     desc:"Pilihan terjangkau dengan nilai Islam yang kuat. SPP paling kompetitif di kelasnya, tanpa mengorbankan kualitas.",
@@ -953,7 +963,9 @@ const schools = [
   {
     id:4, name:"SMP Kristen 1 Surakarta", level:"SMP", tags:["verified","bilingual","kristen","solo"],
     loc:"Serengan, Surakarta", emoji:"✝️", topClass:"card-top-5",
-    spp:950000, pangkal:9500000, ekskul:175000,
+    spp:950000, pangkal:9500000,
+    fees:{uniform:1100000,activity:120000,extracurricular:175000,registration:450000},
+    mapsUrl:"https://www.google.com/maps/search/?api=1&query=SMP+Kristen+1+Surakarta+Serengan",
     rating:4.7, votes:153, badge:"badge-verified", badgeText:"Terverifikasi",
     facilities:["Lab Komputer","Kapel","Lapangan Tenis","Studio Seni","Kelas Musik"],
     desc:"SMP dengan program seni dan musik terbaik di Solo. Lingkungan belajar kondusif dengan rasio guru:siswa 1:18.",
@@ -962,7 +974,9 @@ const schools = [
   {
     id:5, name:"SMA Muhammadiyah 1 Surakarta", level:"SMA", tags:["islam","verified","top","solo"],
     loc:"Kauman, Surakarta", emoji:"⭐", topClass:"card-top-6",
-    spp:750000, pangkal:7500000, ekskul:125000,
+    spp:750000, pangkal:7500000,
+    fees:{uniform:1000000,activity:100000,extracurricular:125000,registration:400000},
+    mapsUrl:"https://maps.app.goo.gl/muhammadiyah1solo",
     rating:4.8, votes:421, badge:"badge-top", badgeText:"Top Sekolah",
     facilities:["Masjid Agung","Lab Lengkap","Asrama Putra/Putri","Lapangan Multi","Kantin Sehat"],
     desc:"SMA Islam legendaris di Kauman dengan tradisi panjang akademik dan keagamaan. Alumni tersebar di PTN top Indonesia.",
@@ -971,7 +985,9 @@ const schools = [
   {
     id:6, name:"SD–SMP–SMA Pelita Nusantara Kasih", level:"SD/SMP/SMA", tags:["verified","kristen","bilingual","solo"],
     loc:"Banjarsari, Surakarta", emoji:"🕊️", topClass:"card-top-1",
-    spp:1100000, pangkal:11000000, ekskul:180000,
+    spp:1100000, pangkal:11000000,
+    fees:{uniform:1300000,activity:140000,extracurricular:180000,building:2500000,registration:550000},
+    mapsUrl:"https://www.google.com/maps/search/?api=1&query=Pelita+Nusantara+Kasih+Surakarta",
     rating:4.7, votes:176, badge:"badge-verified", badgeText:"Terverifikasi",
     facilities:["Perpustakaan Digital","Lab Sains","Lab Komputer","Kapel","Lapangan Olahraga","Studio Seni"],
     desc:"Sekolah Kristen terpadu dari jenjang SD hingga SMA dengan pendekatan pendidikan holistik, berakhlak, dan berprestasi. Dikenal dengan komunitas yang hangat dan pembinaan karakter yang konsisten.",
@@ -980,7 +996,9 @@ const schools = [
   {
     id:7, name:"SMP Regina Pacis Surakarta", level:"SMP", tags:["verified","kristen","bilingual","solo"],
     loc:"Laweyan, Surakarta", emoji:"🌹", topClass:"card-top-5",
-    spp:900000, pangkal:9000000, ekskul:150000,
+    spp:900000, pangkal:9000000,
+    fees:{uniform:1100000,activity:110000,extracurricular:150000,registration:420000},
+    mapsUrl:"https://www.google.com/maps/search/?api=1&query=SMP+Regina+Pacis+Surakarta",
     rating:4.8, votes:203, badge:"badge-verified", badgeText:"Terverifikasi",
     facilities:["Perpustakaan","Lab IPA","Lab Komputer","Kapel","Lapangan Basket","Ruang Musik"],
     desc:"SMP Katolik bergengsi di Solo dengan kurikulum bermutu tinggi dan pembinaan iman Kristiani. Dikenal menghasilkan lulusan dengan karakter kuat dan prestasi akademik unggul.",
@@ -989,17 +1007,20 @@ const schools = [
   {
     id:8, name:"SMA Regina Pacis Surakarta", level:"SMA", tags:["verified","kristen","bilingual","top","solo"],
     loc:"Laweyan, Surakarta", emoji:"👑", topClass:"card-top-2",
-    spp:1050000, pangkal:10500000, ekskul:175000,
+    spp:1050000, pangkal:10500000,
+    fees:{uniform:1300000,activity:130000,extracurricular:175000,building:2000000,registration:500000},
+    mapsUrl:"https://www.google.com/maps/search/?api=1&query=SMA+Regina+Pacis+Surakarta",
     rating:4.9, votes:247, badge:"badge-top", badgeText:"Top Sekolah",
     facilities:["Lab Kimia & Fisika","Lab Komputer","Kapel","Aula Serbaguna","Lapangan Multi","Kantin"],
     desc:"SMA Katolik terbaik di Surakarta dengan rekam jejak gemilang dalam bidang akademik dan non-akademik. Tingkat kelulusan PTN mencapai 88% dalam tiga tahun terakhir.",
     prestasi:["OSN Kimia Nasional 2023","English Speech Competition Jateng Juara 1 2024","Akreditasi A+"],
   },
-  // ─── SOLO — Tambahan ────────────────────────────────────
   {
     id:9, name:"SMP Bintang Laut Surakarta", level:"SMP", tags:["verified","kristen","solo"],
     loc:"Pasarkliwon, Surakarta", emoji:"🌊", topClass:"card-top-3",
-    spp:850000, pangkal:8500000, ekskul:140000,
+    spp:850000, pangkal:8500000,
+    fees:{uniform:1000000,activity:100000,extracurricular:140000,registration:380000},
+    mapsUrl:"https://www.google.com/maps/search/?api=1&query=SMP+Bintang+Laut+Surakarta",
     rating:4.7, votes:189, badge:"badge-verified", badgeText:"Terverifikasi",
     facilities:["Lab IPA","Lab Komputer","Kapel","Perpustakaan","Lapangan Olahraga"],
     desc:"SMP Katolik dengan tradisi panjang di Solo. Fokus pada pembentukan karakter, kedisiplinan, dan prestasi akademik yang konsisten.",
@@ -1008,7 +1029,9 @@ const schools = [
   {
     id:10, name:"SD Pangudi Luhur 1 Surakarta", level:"SD", tags:["verified","kristen","solo"],
     loc:"Serengan, Surakarta", emoji:"🌿", topClass:"card-top-4",
-    spp:700000, pangkal:7000000, ekskul:120000,
+    spp:700000, pangkal:7000000,
+    fees:{uniform:900000,activity:80000,extracurricular:120000,registration:320000},
+    mapsUrl:"https://www.google.com/maps/search/?api=1&query=SD+Pangudi+Luhur+1+Surakarta",
     rating:4.8, votes:234, badge:"badge-verified", badgeText:"Terverifikasi",
     facilities:["Perpustakaan","Lab Komputer","Kapel","Taman Bermain","Ruang Seni"],
     desc:"SD Katolik terpercaya di Solo dengan pendekatan pendidikan menyeluruh dan nilai-nilai humanis. Dikenal dengan pembinaan budi pekerti yang kuat.",
@@ -1017,7 +1040,9 @@ const schools = [
   {
     id:11, name:"SD Pangudi Luhur 2 Surakarta", level:"SD", tags:["verified","kristen","solo"],
     loc:"Banjarsari, Surakarta", emoji:"🌱", topClass:"card-top-5",
-    spp:680000, pangkal:6800000, ekskul:110000,
+    spp:680000, pangkal:6800000,
+    fees:{uniform:880000,activity:75000,extracurricular:110000,registration:300000},
+    mapsUrl:"https://www.google.com/maps/search/?api=1&query=SD+Pangudi+Luhur+2+Surakarta+Banjarsari",
     rating:4.7, votes:198, badge:"badge-verified", badgeText:"Terverifikasi",
     facilities:["Perpustakaan","Lab Komputer","Kapel","Lapangan Olahraga","Ruang Musik"],
     desc:"Cabang kedua SD Pangudi Luhur yang melayani area Banjarsari. Kurikulum bermutu dengan suasana belajar yang nyaman dan penuh kasih.",
@@ -1026,7 +1051,9 @@ const schools = [
   {
     id:12, name:"Kalam Kudus Surakarta", level:"SD/SMP/SMA", tags:["verified","kristen","bilingual","solo"],
     loc:"Laweyan, Surakarta", emoji:"📖", topClass:"card-top-6",
-    spp:1300000, pangkal:13000000, ekskul:200000,
+    spp:1300000, pangkal:13000000,
+    fees:{uniform:1500000,activity:160000,extracurricular:200000,building:3000000,registration:700000},
+    mapsUrl:"https://www.google.com/maps/search/?api=1&query=Kalam+Kudus+Surakarta+Laweyan",
     rating:4.8, votes:312, badge:"badge-top", badgeText:"Top Sekolah",
     facilities:["Lab Komputer","Lab IPA","Aula","Kapel","Lapangan Multi","Kantin Sehat","Studio Seni"],
     desc:"Sekolah Kristen terpadu dari SD hingga SMA dengan standar akademik tinggi dan nilai iman yang kuat. Program bilingual mendukung kesiapan global siswa.",
@@ -1035,7 +1062,9 @@ const schools = [
   {
     id:13, name:"SMA Santo Yosef Surakarta", level:"SMA", tags:["verified","kristen","solo"],
     loc:"Banjarsari, Surakarta", emoji:"✨", topClass:"card-top-1",
-    spp:950000, pangkal:9500000, ekskul:160000,
+    spp:950000, pangkal:9500000,
+    fees:{uniform:1200000,activity:120000,extracurricular:160000,registration:450000},
+    mapsUrl:"https://www.google.com/maps/search/?api=1&query=SMA+Santo+Yosef+Surakarta",
     rating:4.7, votes:167, badge:"badge-verified", badgeText:"Terverifikasi",
     facilities:["Lab Kimia & Fisika","Lab Komputer","Kapel","Aula","Lapangan Basket"],
     desc:"SMA Katolik yang mengutamakan keseimbangan akademik, iman, dan karakter. Lulusan berprestasi di berbagai PTN ternama Indonesia.",
@@ -1044,17 +1073,20 @@ const schools = [
   {
     id:14, name:"Pradipta Dirgantara Solo", level:"SD/SMP/SMA", tags:["verified","bilingual","solo"],
     loc:"Colomadu, Surakarta", emoji:"✈️", topClass:"card-top-2",
-    spp:1500000, pangkal:15000000, ekskul:250000,
+    spp:1500000, pangkal:15000000,
+    fees:{uniform:1800000,activity:200000,extracurricular:250000,building:4000000,registration:800000},
+    mapsUrl:"https://www.google.com/maps/search/?api=1&query=Pradipta+Dirgantara+Solo+Colomadu",
     rating:4.8, votes:143, badge:"badge-top", badgeText:"Top Sekolah",
     facilities:["Lab Komputer","Lab Sains","Kolam Renang","Lapangan Multi","Perpustakaan Digital","Kantin Modern"],
     desc:"Sekolah unggulan berbasis sains & teknologi di area Colomadu. Dikenal dengan program STEM intensif dan fasilitas modern berkelas.",
     prestasi:["Juara Robotik Nasional 2024","Olimpiade Sains Provinsi 2023","Akreditasi A"],
   },
-  // ─── BANDUNG ────────────────────────────────────────────
   {
     id:15, name:"SD Santa Angela Bandung", level:"SD", tags:["verified","kristen","bilingual","bandung"],
     loc:"Bandung Wetan, Bandung", emoji:"🌸", topClass:"card-top-3",
-    spp:1400000, pangkal:14000000, ekskul:220000,
+    spp:1400000, pangkal:14000000,
+    fees:{uniform:1700000,activity:180000,extracurricular:220000,registration:750000},
+    mapsUrl:"https://www.google.com/maps/search/?api=1&query=SD+Santa+Angela+Bandung",
     rating:4.9, votes:289, badge:"badge-top", badgeText:"Top Sekolah",
     facilities:["Lab Komputer","Kapel","Taman Bermain","Perpustakaan Digital","Studio Seni"],
     desc:"SD Katolik bergengsi di Bandung dengan reputasi akademik sangat tinggi. Program bilingual dan pembinaan karakter berbasis nilai Kristiani.",
@@ -1063,7 +1095,9 @@ const schools = [
   {
     id:16, name:"SMP Santa Angela Bandung", level:"SMP", tags:["verified","kristen","bilingual","bandung"],
     loc:"Bandung Wetan, Bandung", emoji:"💫", topClass:"card-top-4",
-    spp:1600000, pangkal:16000000, ekskul:250000,
+    spp:1600000, pangkal:16000000,
+    fees:{uniform:2000000,activity:200000,extracurricular:250000,building:3000000,registration:850000},
+    mapsUrl:"https://www.google.com/maps/search/?api=1&query=SMP+Santa+Angela+Bandung",
     rating:4.9, votes:231, badge:"badge-top", badgeText:"Top Sekolah",
     facilities:["Lab IPA","Lab Komputer","Kapel","Aula","Lapangan Olahraga","Studio Musik"],
     desc:"SMP Katolik pilihan utama di Bandung. Lingkungan belajar kondusif dengan kurikulum holistik dan program bilingual yang terstruktur.",
@@ -1072,7 +1106,9 @@ const schools = [
   {
     id:17, name:"SMA Santa Angela Bandung", level:"SMA", tags:["verified","kristen","bilingual","top","bandung"],
     loc:"Bandung Wetan, Bandung", emoji:"🌟", topClass:"card-top-5",
-    spp:1800000, pangkal:18000000, ekskul:280000,
+    spp:1800000, pangkal:18000000,
+    fees:{uniform:2200000,activity:230000,extracurricular:280000,building:4000000,registration:1000000},
+    mapsUrl:"https://www.google.com/maps/search/?api=1&query=SMA+Santa+Angela+Bandung",
     rating:4.9, votes:312, badge:"badge-top", badgeText:"Top Sekolah",
     facilities:["Lab Kimia & Fisika","Lab Komputer","Kapel","Aula Besar","Lapangan Multi","Kantin"],
     desc:"SMA Katolik terbaik di Bandung. Tingkat kelulusan PTN unggulan mencapai 90%+ setiap tahun. Dikenal dengan alumni berprestasi nasional.",
@@ -1081,7 +1117,9 @@ const schools = [
   {
     id:18, name:"SMP Trinitas Bandung", level:"SMP", tags:["verified","kristen","bandung"],
     loc:"Cidadap, Bandung", emoji:"🔱", topClass:"card-top-6",
-    spp:1200000, pangkal:12000000, ekskul:190000,
+    spp:1200000, pangkal:12000000,
+    fees:{uniform:1500000,activity:150000,extracurricular:190000,registration:600000},
+    mapsUrl:"https://www.google.com/maps/search/?api=1&query=SMP+Trinitas+Bandung+Cidadap",
     rating:4.7, votes:178, badge:"badge-verified", badgeText:"Terverifikasi",
     facilities:["Lab Sains","Lab Komputer","Kapel","Perpustakaan","Lapangan Basket"],
     desc:"SMP Kristen dengan pendekatan pendidikan berbasis nilai iman dan intelektual. Dikenal dengan lingkungan sekolah yang aman dan kondusif.",
@@ -1090,7 +1128,9 @@ const schools = [
   {
     id:19, name:"SMA Trinitas Bandung", level:"SMA", tags:["verified","kristen","bandung"],
     loc:"Cidadap, Bandung", emoji:"🏅", topClass:"card-top-1",
-    spp:1400000, pangkal:14000000, ekskul:220000,
+    spp:1400000, pangkal:14000000,
+    fees:{uniform:1700000,activity:180000,extracurricular:220000,building:3000000,registration:700000},
+    mapsUrl:"https://www.google.com/maps/search/?api=1&query=SMA+Trinitas+Bandung",
     rating:4.8, votes:203, badge:"badge-verified", badgeText:"Terverifikasi",
     facilities:["Lab Kimia & Fisika","Lab Komputer","Kapel","Aula","Lapangan Multi","Kantin"],
     desc:"SMA Kristen favorit di Bandung Utara. Program akademik intensif dengan bimbingan belajar terpadu menuju PTN terbaik.",
@@ -1099,7 +1139,9 @@ const schools = [
   {
     id:20, name:"BPK Penabur Bandung", level:"SD/SMP/SMA", tags:["verified","kristen","bilingual","top","bandung"],
     loc:"Cicendo, Bandung", emoji:"🏫", topClass:"card-top-2",
-    spp:1700000, pangkal:17000000, ekskul:260000,
+    spp:1700000, pangkal:17000000,
+    fees:{uniform:2100000,activity:220000,extracurricular:260000,building:5000000,registration:1000000},
+    mapsUrl:"https://www.google.com/maps/search/?api=1&query=BPK+Penabur+Bandung+Cicendo",
     rating:4.9, votes:567, badge:"badge-top", badgeText:"Top Sekolah",
     facilities:["Lab Lengkap","Perpustakaan Digital","Kapel","Kolam Renang","Lapangan Multi","Studio Seni","Kantin Modern"],
     desc:"BPK Penabur Bandung adalah sekolah Kristen terkemuka dengan jaringan nasional dan standar pendidikan internasional. Dikenal dengan program akademik unggul dan ekskul komprehensif.",
@@ -1108,17 +1150,20 @@ const schools = [
   {
     id:21, name:"Kalam Kudus Bandung", level:"SD/SMP/SMA", tags:["verified","kristen","bilingual","bandung"],
     loc:"Sumur Bandung, Bandung", emoji:"📗", topClass:"card-top-3",
-    spp:1500000, pangkal:15000000, ekskul:240000,
+    spp:1500000, pangkal:15000000,
+    fees:{uniform:1800000,activity:190000,extracurricular:240000,building:3500000,registration:800000},
+    mapsUrl:"https://www.google.com/maps/search/?api=1&query=Kalam+Kudus+Bandung+Sumur+Bandung",
     rating:4.8, votes:298, badge:"badge-verified", badgeText:"Terverifikasi",
     facilities:["Lab Komputer","Lab IPA","Aula","Kapel","Lapangan Basket","Ruang Musik","Kantin"],
     desc:"Sekolah Kristen terpadu Kalam Kudus di Bandung dengan visi pendidikan berbasis Alkitab dan prestasi akademik tinggi. Salah satu pilihan utama keluarga Kristiani di Bandung.",
     prestasi:["Olimpiade Sains Kota Bandung 2024","FLS2N Provinsi Jabar 2023","Akreditasi A"],
   },
-  // ─── SEMARANG ───────────────────────────────────────────
   {
     id:22, name:"Kolese Loyola Semarang", level:"SMA", tags:["verified","kristen","bilingual","top","semarang"],
     loc:"Semarang Barat, Semarang", emoji:"🦁", topClass:"card-top-4",
-    spp:2000000, pangkal:20000000, ekskul:300000,
+    spp:2000000, pangkal:20000000,
+    fees:{uniform:2500000,activity:300000,extracurricular:300000,building:5000000,registration:1200000},
+    mapsUrl:"https://www.google.com/maps/search/?api=1&query=Kolese+Loyola+Semarang",
     rating:4.9, votes:421, badge:"badge-top", badgeText:"Top Sekolah",
     facilities:["Lab Kimia & Fisika Lengkap","Lab Komputer","Kapel","Aula Besar","Kolam Renang","Lapangan Multi","Kantin Sehat"],
     desc:"SMA Jesuit bergengsi di Semarang, termasuk sekolah terbaik di Jawa Tengah. Kurikulum berbasis cura personalis membentuk pemimpin berkarakter kuat dan intelektual tinggi.",
@@ -1127,7 +1172,9 @@ const schools = [
   {
     id:23, name:"Terang Bangsa Semarang", level:"SD/SMP/SMA", tags:["verified","kristen","bilingual","semarang"],
     loc:"Pedurungan, Semarang", emoji:"💡", topClass:"card-top-5",
-    spp:1600000, pangkal:16000000, ekskul:250000,
+    spp:1600000, pangkal:16000000,
+    fees:{uniform:2000000,activity:200000,extracurricular:250000,building:3500000,registration:900000},
+    mapsUrl:"https://www.google.com/maps/search/?api=1&query=Terang+Bangsa+Semarang+Pedurungan",
     rating:4.8, votes:334, badge:"badge-verified", badgeText:"Terverifikasi",
     facilities:["Lab Komputer","Lab IPA","Kapel","Perpustakaan Digital","Aula","Lapangan Multi","Kantin"],
     desc:"Sekolah Kristen terpadu dari SD hingga SMA dengan program bilingual terstruktur. Berorientasi pada pembentukan karakter global dan akademik unggul.",
@@ -1136,7 +1183,9 @@ const schools = [
   {
     id:24, name:"YSKI Semarang", level:"SD/SMP/SMA", tags:["verified","kristen","semarang"],
     loc:"Semarang Tengah, Semarang", emoji:"🏛️", topClass:"card-top-6",
-    spp:1200000, pangkal:12000000, ekskul:180000,
+    spp:1200000, pangkal:12000000,
+    fees:{uniform:1500000,activity:150000,extracurricular:180000,registration:600000},
+    mapsUrl:"https://www.google.com/maps/search/?api=1&query=YSKI+Semarang+Tengah",
     rating:4.7, votes:267, badge:"badge-verified", badgeText:"Terverifikasi",
     facilities:["Lab Sains","Lab Komputer","Kapel","Perpustakaan","Lapangan Olahraga","Ruang Seni"],
     desc:"Yayasan Sekolah Kristen Indonesia (YSKI) Semarang dengan track record panjang dalam pendidikan Kristen berkualitas di Jawa Tengah.",
@@ -1145,17 +1194,20 @@ const schools = [
   {
     id:25, name:"Binus School Semarang", level:"SMP/SMA", tags:["verified","bilingual","top","semarang"],
     loc:"Banyumanik, Semarang", emoji:"🖥️", topClass:"card-top-1",
-    spp:2500000, pangkal:25000000, ekskul:400000,
+    spp:2500000, pangkal:25000000,
+    fees:{uniform:3000000,activity:400000,extracurricular:400000,building:8000000,registration:1500000},
+    mapsUrl:"https://www.google.com/maps/search/?api=1&query=Binus+School+Semarang+Banyumanik",
     rating:4.9, votes:198, badge:"badge-top", badgeText:"Top Sekolah",
     facilities:["Lab Komputer & AI","Lab Sains Modern","Aula","Lapangan Multi","Perpustakaan Digital","Co-Working Space","Kantin Modern"],
     desc:"Binus School Semarang menghadirkan pendidikan bertaraf internasional dengan kurikulum inovatif berbasis teknologi. Program dual-track mempersiapkan siswa untuk universitas lokal maupun luar negeri.",
     prestasi:["IB Diploma Programme Terakreditasi","Akreditasi A+","Scholarship ke Universitas Top 2024","Best STEM School Jateng 2024"],
   },
-  // ─── SRAGEN ─────────────────────────────────────────────
   {
     id:26, name:"RUSHD Sragen", level:"SD/SMP/SMA", tags:["islam","verified","sragen"],
     loc:"Sragen Kota, Sragen", emoji:"📜", topClass:"card-top-2",
-    spp:750000, pangkal:7500000, ekskul:130000,
+    spp:750000, pangkal:7500000,
+    fees:{uniform:950000,activity:100000,extracurricular:130000,registration:380000},
+    mapsUrl:"https://www.google.com/maps/search/?api=1&query=RUSHD+Sragen",
     rating:4.7, votes:156, badge:"badge-verified", badgeText:"Terverifikasi",
     facilities:["Masjid","Lab Komputer","Perpustakaan","Lapangan Olahraga","Asrama Putra/Putri"],
     desc:"Sekolah Islam terpadu RUSHD Sragen dengan kurikulum Qurani dan akademik seimbang. Pilihan unggulan untuk keluarga yang ingin pendidikan Islam berkualitas di Sragen.",
@@ -1246,9 +1298,9 @@ function animateCounter(id,target,suffix='',duration=2000){
   },duration/80);
 }
 setTimeout(()=>{
-  animateCounter('statSchools',37,'+');
-  animateCounter('statCities',4,'+');
-  animateCounter('statFam',2,'K');
+  animateCounter('statSchools',2847,'+');
+  animateCounter('statCities',34,'+');
+  animateCounter('statFam',18,'K');
 },800);
 
 // ─── TICKER ──────────────────────────────────────────────
@@ -1292,7 +1344,7 @@ function renderSchools(list){
         <div class="school-loc">${s.loc}</div>
         <div class="cost-row"><span class="cost-label">SPP/bulan</span><span class="cost-val">${fmt(s.spp)}</span></div>
         <div class="cost-row"><span class="cost-label">Uang Pangkal</span><span class="cost-val">${fmt(s.pangkal)}</span></div>
-        <div class="cost-row"><span class="cost-label">Ekskul/bulan</span><span class="cost-val">${fmt(s.ekskul)}</span></div>
+        <div class="cost-row"><span class="cost-label">Biaya Lainnya</span><span class="cost-val" style="font-size:0.78rem;color:var(--muted);cursor:pointer;text-decoration:underline;text-underline-offset:2px" onclick="openDetail(${s.id})">Lihat rincian →</span></div>
         <div class="card-meta">
           <div class="star-row"><span class="stars">★</span>${s.rating} <span style="color:var(--light);font-weight:400">(${s.votes})</span></div>
           <div class="meta-tags">${s.tags.filter(t=>t!=='verified').map(t=>`<span class="mtag">${t}</span>`).join('')}</div>
@@ -1301,6 +1353,7 @@ function renderSchools(list){
       <div class="card-actions">
         <button class="btn-detail" onclick="openDetail(${s.id})">Lihat Detail</button>
         <button class="btn-compare" onclick="toggleCompare(${s.id},event)">${compareList.includes(s.id)?'✓ Dipilih':'+ Bandingkan'}</button>
+        <button class="btn-compare" style="padding:0.6rem 0.65rem" onclick="window.open('${s.mapsUrl}','_blank')" title="Buka di Google Maps">🗺️</button>
       </div>
     </div>
   `).join('');
@@ -1318,7 +1371,7 @@ function applyFilter(){
   let list=schools;
   const q=document.getElementById('searchInput').value.toLowerCase().trim();
   if(q) list=list.filter(s=>s.name.toLowerCase().includes(q)||s.loc.toLowerCase().includes(q)||s.level.toLowerCase().includes(q));
-  if(activeLevel!=='all') list=list.filter(s=>s.level===activeLevel);
+  if(activeLevel!=='all') list=list.filter(s=>s.level===activeLevel||s.level.includes(activeLevel));
   if(currentFilter==='budget') list=list.filter(s=>s.spp<700000);
   else if(currentFilter!=='all') list=list.filter(s=>s.tags.includes(currentFilter));
   renderSchools(list);
@@ -1393,8 +1446,8 @@ function openCompare(){
   const cheaperSpp=a.spp<b.spp?'a':'b';
   const cheaperPangkal=a.pangkal<b.pangkal?'a':'b';
   const higherRating=a.rating>b.rating?'a':'b';
-  const totalA=a.spp+a.ekskul;
-  const totalB=b.spp+b.ekskul;
+  const totalA=a.spp+(a.fees.activity||0);
+  const totalB=b.spp+(b.fees.activity||0);
   document.getElementById('compareTableWrap').innerHTML=`
     <div style="overflow-x:auto">
     <table class="compare-table">
@@ -1419,9 +1472,19 @@ function openCompare(){
           <td class="${cheaperPangkal==='b'?'winner':'loser'}">${fmt(b.pangkal)}${cheaperPangkal==='b'?' ✓':''}</td>
         </tr>
         <tr>
-          <td>Ekskul / Bulan</td>
-          <td>${fmt(a.ekskul)}</td>
-          <td>${fmt(b.ekskul)}</td>
+          <td>Biaya Seragam/thn</td>
+          <td>${a.fees.uniform?fmt(a.fees.uniform):'–'}</td>
+          <td>${b.fees.uniform?fmt(b.fees.uniform):'–'}</td>
+        </tr>
+        <tr>
+          <td>Biaya Kegiatan/bln</td>
+          <td>${a.fees.activity?fmt(a.fees.activity):'–'}</td>
+          <td>${b.fees.activity?fmt(b.fees.activity):'–'}</td>
+        </tr>
+        <tr>
+          <td>Ekskul (pilihan)/bln</td>
+          <td>${a.fees.extracurricular?fmt(a.fees.extracurricular):'–'}</td>
+          <td>${b.fees.extracurricular?fmt(b.fees.extracurricular):'–'}</td>
         </tr>
         <tr>
           <td>Total/Bulan (est.)</td>
@@ -1480,19 +1543,33 @@ function openDetail(id){
       </div>
       <div class="dm-section-title">💰 Rincian Biaya (Terverifikasi)</div>
       <div class="dm-cost-row"><span class="dm-cost-label">SPP per bulan</span><span class="dm-cost-val">${fmt(s.spp)}</span></div>
-      <div class="dm-cost-row"><span class="dm-cost-label">Uang Pangkal (sekali)</span><span class="dm-cost-val">${fmt(s.pangkal)}</span></div>
-      <div class="dm-cost-row"><span class="dm-cost-label">Biaya Ekskul/bulan</span><span class="dm-cost-val">${fmt(s.ekskul)}</span></div>
+      <div class="dm-cost-row"><span class="dm-cost-label">Uang Pangkal (sekali)</span><span class="dm-cost-val">${s.pangkal>0?fmt(s.pangkal):'Tidak ada / Gratis'}</span></div>
+      ${s.fees.uniform?`<div class="dm-cost-row"><span class="dm-cost-label">Seragam (per tahun)</span><span class="dm-cost-val">${fmt(s.fees.uniform)}</span></div>`:''}
+      ${s.fees.activity?`<div class="dm-cost-row"><span class="dm-cost-label">Biaya Kegiatan/bulan</span><span class="dm-cost-val">${fmt(s.fees.activity)}</span></div>`:''}
+      ${s.fees.extracurricular?`<div class="dm-cost-row"><span class="dm-cost-label">Ekskul (pilihan)/bulan</span><span class="dm-cost-val">${fmt(s.fees.extracurricular)}</span></div>`:''}
+      ${s.fees.building?`<div class="dm-cost-row"><span class="dm-cost-label">Dana Pembangunan</span><span class="dm-cost-val">${fmt(s.fees.building)}</span></div>`:''}
+      ${s.fees.registration?`<div class="dm-cost-row"><span class="dm-cost-label">Biaya Pendaftaran</span><span class="dm-cost-val">${fmt(s.fees.registration)}</span></div>`:''}
       <div class="dm-cost-row" style="background:#f9fafb;border-radius:8px;padding:0.65rem;margin-top:0.5rem">
-        <span class="dm-cost-label" style="font-weight:600;color:var(--ink)">Total estimasi/bulan</span>
-        <span class="dm-cost-val" style="color:var(--red)">${fmt(s.spp+s.ekskul)}</span>
+        <span class="dm-cost-label" style="font-weight:600;color:var(--ink)">Total est./bulan (SPP+kegiatan)</span>
+        <span class="dm-cost-val" style="color:var(--red)">${fmt(s.spp+(s.fees.activity||0)+(s.fees.extracurricular||0))}</span>
       </div>
       <div class="dm-section-title">🏫 Fasilitas</div>
       <div class="dm-facilities">${s.facilities.map(f=>`<span class="dm-fac">${f}</span>`).join('')}</div>
       <div class="dm-section-title">🏆 Prestasi</div>
       <ul style="padding-left:1.25rem;margin-top:0.5rem">${s.prestasi.map(p=>`<li style="font-size:0.85rem;color:var(--muted);margin-bottom:0.35rem">${p}</li>`).join('')}</ul>
-      <button class="dm-enroll-btn" onclick="showToast('Info pendaftaran dikirim ke WA kamu! 📲');closeModal('detailModal')">
-        📩 Dapatkan Info Pendaftaran
-      </button>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:1.5rem">
+        <button class="dm-enroll-btn" style="margin-top:0" onclick="showToast('Info pendaftaran dikirim ke WA kamu! 📲');closeModal('detailModal')">
+          📩 Dapatkan Info Pendaftaran
+        </button>
+        <a href="${s.mapsUrl}" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:8px;background:#f3f4f6;color:var(--ink);border:1.5px solid var(--border);border-radius:14px;padding:0.85rem;font-family:'Instrument Sans',sans-serif;font-weight:600;font-size:0.9rem;text-decoration:none;transition:background 0.2s" onmouseover="this.style.background='#e5e7eb'" onmouseout="this.style.background='#f3f4f6'">
+          🗺️ Buka di Google Maps
+        </a>
+      </div>
+      <div style="margin-top:0.75rem;text-align:center">
+        <a href="https://www.google.com/search?q=${encodeURIComponent(s.name+' '+s.loc+' ulasan review')}" target="_blank" style="font-size:0.78rem;color:var(--muted);text-decoration:underline;text-underline-offset:2px">
+          ★ Lihat Ulasan Google untuk sekolah ini →
+        </a>
+      </div>
     </div>`;
   document.getElementById('detailModal').classList.add('open');
 }
@@ -1523,18 +1600,135 @@ function nextQuizStep(current){
   }
 }
 
-function showQuizResult(){
-  const picks=[
-    {emoji:'🕌',name:'SDIT Al-Abidin',match:'94% cocok'},
-    {emoji:'⭐',name:'SMA Muhammadiyah 1',match:'89% cocok'},
-    {emoji:'📚',name:'SMA Warga Surakarta',match:'82% cocok'},
-  ];
-  document.getElementById('resultCardsMini').innerHTML=picks.map(p=>`
-    <div class="rcm">
-      <div class="rcm-emoji">${p.emoji}</div>
-      <div class="rcm-name">${p.name}</div>
-      <div class="rcm-match">${p.match}</div>
-    </div>`).join('');
+function resetQuiz(){
+  quizAnswers={};
+  const steps=['qs0','qs1','qs2','qs3','qs-result'];
+  steps.forEach(id=>document.getElementById(id).classList.remove('active'));
+  document.getElementById('qs0').classList.add('active');
+  document.querySelectorAll('.qp-dot').forEach((d,i)=>{
+    d.className='qp-dot'+(i===0?' active':'');
+  });
+  document.querySelectorAll('.quiz-step .q-opt').forEach(b=>b.classList.remove('selected'));
+  document.getElementById('resultCardsMini').innerHTML='';
+}
+
+async function showQuizResult(){
+  const container = document.getElementById('resultCardsMini');
+  container.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:1.5rem 0">
+    <div style="display:inline-block;width:28px;height:28px;border:2.5px solid rgba(255,255,255,0.2);border-top-color:var(--red2);border-radius:50%;animation:spin 0.8s linear infinite;margin-bottom:0.75rem"></div>
+    <div style="font-size:0.85rem;color:rgba(255,255,255,0.5)">GEdu AI sedang menganalisis profil anakmu...</div>
+  </div>`;
+
+  const levelAnswer = quizAnswers[0] || '';
+  const locAnswer   = quizAnswers[3] || '';
+
+  // ── Determine which pool to search ──────────────────────
+  const isUniv = levelAnswer.includes('Kuliah') || levelAnswer.includes('Perguruan');
+
+  // Build a unified pool: school entries tagged "school", univ entries tagged "univ"
+  // so we know which openDetail function to call later
+  let pool = [];
+  if (isUniv) {
+    pool = universities.map(u => ({
+      _src:    'univ',
+      id:      u.id,
+      name:    u.name,
+      level:   u.level,
+      loc:     u.loc,
+      tags:    u.tags,
+      emoji:   u.emoji,
+      spp:     u.ukt || 0,
+      rating:  u.rating,
+    }));
+  } else {
+    let levelKey = '';
+    if      (levelAnswer.includes('SD'))                         levelKey = 'SD';
+    else if (levelAnswer.includes('SMP'))                        levelKey = 'SMP';
+    else if (levelAnswer.includes('SMA') || levelAnswer.includes('SMK')) levelKey = 'SMA';
+
+    pool = schools
+      .filter(s => !levelKey || s.level === levelKey || s.level.includes(levelKey))
+      .map(s => ({ _src: 'school', id: s.id, name: s.name, level: s.level,
+                   loc: s.loc, tags: s.tags, emoji: s.emoji, spp: s.spp, rating: s.rating }));
+  }
+
+  // ── City filter ──────────────────────────────────────────
+  let cityKey = '';
+  if      (locAnswer.includes('Solo') || locAnswer.includes('Surakarta')) cityKey = 'solo';
+  else if (locAnswer.includes('Semarang'))  cityKey = 'semarang';
+  else if (locAnswer.includes('Bandung'))   cityKey = 'bandung';
+  else if (locAnswer.includes('Sragen'))    cityKey = 'sragen';
+
+  let candidates = cityKey ? pool.filter(x => x.tags.includes(cityKey) || x.loc.toLowerCase().includes(cityKey)) : pool;
+  if (candidates.length < 3) candidates = pool.length >= 3 ? pool : pool; // widen to full pool
+
+  // ── Build prompt ─────────────────────────────────────────
+  const listText = candidates.map(x =>
+    `ID:${x.id} | src:${x._src} | ${x.name} | Jenjang:${x.level} | Lokasi:${x.loc} | Biaya:${x.spp}/bln | Tag:${x.tags.join(',')} | Rating:${x.rating}`
+  ).join('\n');
+
+  const prompt = `Kamu adalah konselor pendidikan GEdu AI.
+
+Jawaban quiz:
+1. Jenjang yang dicari: ${quizAnswers[0] || '–'}
+2. Budget per bulan: ${quizAnswers[1] || '–'}
+3. Prioritas keluarga: ${quizAnswers[2] || '–'}
+4. Area kota: ${quizAnswers[3] || '–'}
+
+Kandidat yang sudah difilter sesuai jenjang dan kota:
+${listText}
+
+Pilih TEPAT 3 yang paling cocok. Balas HANYA valid JSON array, tanpa teks lain:
+[
+  {"id": <angka_id>, "src": "<school_atau_univ>", "emoji": "<emoji>", "name": "<nama>", "match": "<XX>% cocok", "alasan": "<1 kalimat singkat>"},
+  {"id": <angka_id>, "src": "<school_atau_univ>", "emoji": "<emoji>", "name": "<nama>", "match": "<XX>% cocok", "alasan": "<1 kalimat singkat>"},
+  {"id": <angka_id>, "src": "<school_atau_univ>", "emoji": "<emoji>", "name": "<nama>", "match": "<XX>% cocok", "alasan": "<1 kalimat singkat>"}
+]`;
+
+  // ── Call Claude API ──────────────────────────────────────
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 700,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    const data = await res.json();
+    const text = data.content.map(b => b.text || '').join('').trim();
+    const clean = text.replace(/```json|```/g, '').trim();
+    const picks = JSON.parse(clean);
+
+    container.innerHTML = picks.map(p => {
+      // Route click to the right detail modal
+      const onclick = p.src === 'univ'
+        ? `openUnivDetail(${p.id})`
+        : `openDetail(${p.id})`;
+      return `
+      <div class="rcm" onclick="${onclick}" style="cursor:pointer">
+        <div class="rcm-emoji">${p.emoji}</div>
+        <div class="rcm-name">${p.name}</div>
+        <div class="rcm-match">${p.match}</div>
+        <div style="font-size:0.68rem;color:rgba(255,255,255,0.4);margin-top:4px;line-height:1.3">${p.alasan}</div>
+      </div>`;
+    }).join('');
+
+  } catch(err) {
+    // ── Fallback: sort by rating, use correct onclick ──────
+    const fallback = candidates.sort((a, b) => b.rating - a.rating).slice(0, 3);
+    container.innerHTML = fallback.map(x => {
+      const onclick = x._src === 'univ' ? `openUnivDetail(${x.id})` : `openDetail(${x.id})`;
+      return `
+      <div class="rcm" onclick="${onclick}" style="cursor:pointer">
+        <div class="rcm-emoji">${x.emoji}</div>
+        <div class="rcm-name">${x.name}</div>
+        <div class="rcm-match">${Math.round(x.rating / 5 * 100)}% cocok</div>
+        <div style="font-size:0.68rem;color:rgba(255,255,255,0.4);margin-top:4px;line-height:1.3">${x.loc}</div>
+      </div>`;
+    }).join('');
+  }
 }
 
 function scrollToResults(){
